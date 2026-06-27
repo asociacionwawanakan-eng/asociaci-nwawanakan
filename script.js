@@ -19,7 +19,7 @@ const mapInfoCenter = document.querySelector("#map-info-center");
 const mapInfoDistrict = document.querySelector("#map-info-district");
 const mapInfoAddress = document.querySelector("#map-info-address");
 const mapDirectionsLink = document.querySelector("#map-directions-link");
-const directoryCards = document.querySelectorAll(".directory-card");
+const directoryCards = document.querySelectorAll(".flip-card.directory-card");
 const voluntariadoFlipCards = document.querySelectorAll(".voluntariado-flip-card");
 const voluntariadoHelpCards = document.querySelectorAll(".voluntariado-help-content");
 
