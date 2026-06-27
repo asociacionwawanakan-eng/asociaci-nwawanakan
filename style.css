@@ -10108,10 +10108,23 @@ body.home-page #quienes-somos .eyebrow {
 }
 
 /* Pasantias: correccion obligatoria de fondo y vidrio */
+.pasantia-body,
+.pasantia-page {
+  background: #421304 !important;
+}
+
+.pasantia-page.page-main {
+  padding: 0 !important;
+  background: #421304 !important;
+}
+
+.pasantia-page .pasantia-section,
 .pasantia-page .pasantia-glass-section {
   position: relative;
   isolation: isolate;
   min-height: 100vh;
+  display: grid;
+  place-items: center;
   padding: clamp(104px, 10vw, 124px) clamp(16px, 4vw, 5%) clamp(36px, 6vw, 72px);
   overflow: hidden;
   background-image: url("./assets/fondo pasantia.jpg") !important;
@@ -10120,6 +10133,7 @@ body.home-page #quienes-somos .eyebrow {
   background-repeat: no-repeat !important;
 }
 
+.pasantia-page .pasantia-section::before,
 .pasantia-page .pasantia-glass-section::before {
   position: absolute;
   inset: 0;
@@ -10132,11 +10146,13 @@ body.home-page #quienes-somos .eyebrow {
   pointer-events: none;
 }
 
+.pasantia-page .pasantia-section > *,
 .pasantia-page .pasantia-glass-section > * {
   position: relative;
   z-index: 1;
 }
 
+.pasantia-page .pasantia-glass,
 .pasantia-page .pasantia-glass-card {
   width: min(1180px, 94%);
   margin: 0 auto;
@@ -10151,6 +10167,7 @@ body.home-page #quienes-somos .eyebrow {
   -webkit-backdrop-filter: blur(18px) saturate(1.15) !important;
 }
 
+.pasantia-page .pasantia-glass::before,
 .pasantia-page .pasantia-glass-card::before {
   background:
     linear-gradient(135deg, rgba(255, 255, 255, 0.12), transparent 42%),
@@ -10158,6 +10175,7 @@ body.home-page #quienes-somos .eyebrow {
     radial-gradient(circle at 90% 86%, rgba(255, 244, 230, 0.16), transparent 28%);
 }
 
+.pasantia-page .pasantia-glass::after,
 .pasantia-page .pasantia-glass-card::after {
   right: clamp(18px, 4vw, 46px);
   bottom: clamp(20px, 4vw, 48px);
@@ -10169,6 +10187,12 @@ body.home-page #quienes-somos .eyebrow {
     url("./assets/pasantia foto.jpg") center / cover no-repeat !important;
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
   opacity: 0.38;
+}
+
+.pasantia-page .pasantia-glass > *,
+.pasantia-page .pasantia-glass-card > * {
+  position: relative;
+  z-index: 1;
 }
 
 .pasantia-page .pasantia-intro,
@@ -10193,14 +10217,180 @@ body.home-page #quienes-somos .eyebrow {
   background: rgba(255, 244, 230, 0.12);
 }
 
+.pasantia-page .pasantia-card-top,
+.pasantia-page .pasantia-title-block,
+.pasantia-page .pasantia-content-grid,
+.pasantia-page .pasantia-actions,
+.pasantia-page .pasantia-closing {
+  background: transparent !important;
+}
+
 @media (max-width: 820px) {
+  .pasantia-page .pasantia-glass,
   .pasantia-page .pasantia-glass-card {
     width: min(100%, calc(100vw - 28px));
     border-radius: 26px;
   }
 
+  .pasantia-page .pasantia-glass::after,
   .pasantia-page .pasantia-glass-card::after {
     width: min(280px, 64vw);
     opacity: 0.18;
+  }
+}
+
+/* Voluntariado: una sola composicion glassmorphism */
+.voluntariado-body,
+.voluntariado-page {
+  background: #421304 !important;
+}
+
+.voluntariado-page.page-main {
+  padding: 0 !important;
+  background: #421304 !important;
+}
+
+.voluntariado-glass-section {
+  position: relative;
+  isolation: isolate;
+  min-height: 100vh;
+  padding: clamp(104px, 10vw, 124px) clamp(16px, 4vw, 5%) clamp(36px, 6vw, 72px);
+  overflow: hidden;
+  background-image: url("./assets/voluntariado.png") !important;
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+}
+
+.voluntariado-glass-section::before {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  content: "";
+  background:
+    radial-gradient(circle at 18% 14%, rgba(255, 201, 40, 0.16), transparent 23%),
+    radial-gradient(circle at 82% 20%, rgba(255, 244, 230, 0.12), transparent 24%),
+    linear-gradient(135deg, rgba(66, 19, 4, 0.84), rgba(66, 19, 4, 0.62), rgba(10, 5, 2, 0.86));
+  pointer-events: none;
+}
+
+.voluntariado-glass-section > * {
+  position: relative;
+  z-index: 1;
+}
+
+.voluntariado-glass {
+  position: relative;
+  width: min(1240px, 94%);
+  margin: 0 auto;
+  padding: clamp(24px, 4vw, 52px);
+  overflow: hidden;
+  border: 1px solid rgba(255, 201, 40, 0.38);
+  border-radius: 34px;
+  background: rgba(255, 244, 230, 0.14);
+  box-shadow:
+    0 30px 90px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.22);
+  backdrop-filter: blur(18px) saturate(1.12);
+  -webkit-backdrop-filter: blur(18px) saturate(1.12);
+}
+
+.voluntariado-glass::before,
+.voluntariado-glass::after {
+  position: absolute;
+  content: "";
+  pointer-events: none;
+}
+
+.voluntariado-glass::before {
+  inset: 0;
+  z-index: 0;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.1), transparent 42%),
+    radial-gradient(circle at 12% 10%, rgba(255, 201, 40, 0.18), transparent 26%),
+    radial-gradient(circle at 90% 86%, rgba(255, 244, 230, 0.16), transparent 28%);
+}
+
+.voluntariado-glass::after {
+  right: clamp(18px, 4vw, 46px);
+  bottom: clamp(20px, 4vw, 48px);
+  z-index: 0;
+  width: min(390px, 36vw);
+  aspect-ratio: 4 / 3;
+  border: 1px solid rgba(255, 201, 40, 0.45);
+  border-radius: 24px;
+  background:
+    linear-gradient(rgba(66, 19, 4, 0.08), rgba(66, 19, 4, 0.28)),
+    url("./assets/voluntariado2.jpg") center / cover no-repeat;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+  opacity: 0.22;
+  transform: rotate(2deg);
+}
+
+.voluntariado-glass > * {
+  position: relative;
+  z-index: 1;
+}
+
+.voluntariado-glass .voluntariado-section,
+.voluntariado-glass .voluntariado-final-cta {
+  min-height: auto !important;
+  padding: clamp(22px, 3vw, 34px) 0 !important;
+  background: transparent !important;
+}
+
+.voluntariado-glass .voluntariado-section::before,
+.voluntariado-glass .voluntariado-section::after,
+.voluntariado-glass .voluntariado-final-cta::before,
+.voluntariado-glass .voluntariado-final-cta::after,
+.voluntariado-glass .voluntariado-help::before {
+  display: none !important;
+}
+
+.voluntariado-glass .voluntariado-shell {
+  width: 100%;
+  max-width: none;
+}
+
+.voluntariado-glass .voluntariado-hero {
+  padding-top: 0 !important;
+}
+
+.voluntariado-glass .voluntariado-photo-card,
+.voluntariado-glass .voluntariado-process-layout,
+.voluntariado-glass .voluntariado-step,
+.voluntariado-glass .voluntariado-flip-face,
+.voluntariado-glass .voluntariado-help-card-face {
+  border-color: rgba(255, 201, 40, 0.32);
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.18);
+}
+
+.voluntariado-glass .voluntariado-process-layout {
+  background: rgba(66, 19, 4, 0.42);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.voluntariado-glass .voluntariado-final-cta .voluntariado-shell {
+  max-width: 860px;
+  padding: 24px;
+  border: 1px solid rgba(255, 201, 40, 0.32);
+  border-radius: 24px;
+  background: rgba(66, 19, 4, 0.46);
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.18);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+@media (max-width: 820px) {
+  .voluntariado-glass {
+    width: min(100%, calc(100vw - 28px));
+    padding: 22px;
+    border-radius: 26px;
+  }
+
+  .voluntariado-glass::after {
+    width: min(280px, 64vw);
+    opacity: 0.14;
   }
 }
