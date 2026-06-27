@@ -116,6 +116,18 @@ const centers = [
   }
 ];
 
+const centerDirectionsLink = "https://www.google.com/maps/dir/?api=1&destination=Zona%20Cupilupaca%2C%20Calle%20Rio%20Bermejo%20N%C2%B0%201064%2C%20El%20Alto%2C%20Bolivia";
+const centerFormLink = "https://docs.google.com/forms/d/e/1FAIpQLSff0HB9Bk4NkzAGlJEjGz90EJTxngUOCM3u4kDIBKY1dydNCw/viewform?usp=sharing&ouid=111170788783476830138";
+const centerFacebookLink = "https://www.facebook.com/";
+const centerWhatsappLink = "https://wa.me/591XXXXXXXX";
+const centerInstitutionLogo = "assets/logotipo.png";
+const centerImpactDescriptions = [
+  "Actividades que fortalecen el aprendizaje y la participacion de las ninas y ninos.",
+  "Espacios de cuidado, juego y acompanamiento integral.",
+  "Momentos que reflejan el compromiso del centro con la ninez.",
+  "Experiencias que muestran el impacto educativo y humano del centro."
+];
+
 const centerDetails = {
   "Don Bosquito": {
     subtitulo: "Centro infantil con acompanamiento, cuidado y formacion integral",
@@ -441,13 +453,70 @@ function openCenter(districtIndex, centerIndex) {
           </div>
         </section>
 
-        <p class="center-closing">Acompanamos hoy, transformamos el manana.</p>
         <div class="center-bottom-actions">
           <button class="center-back close-center" type="button">Volver a centros</button>
         </div>
       </div>
     </article>
   `;
+
+  const locationText = centerDetail.querySelector(".center-address-pill");
+  if (locationText) {
+    locationText.outerHTML = `<a class="center-location-button" href="${centerDirectionsLink}" target="_blank" rel="noopener noreferrer">C&oacute;mo llegar al centro</a>`;
+  }
+
+  const centerTitle = centerDetail.querySelector(".center-hero-content h2");
+  if (centerTitle) {
+    centerTitle.innerHTML = `<span>${center.name}</span><img class="center-title-logo" src="${centerInstitutionLogo}" alt="Logotipo Wawanakan">`;
+  }
+
+  centerDetail.querySelector(".center-hero-logos")?.remove();
+  centerDetail.querySelector(".center-glass-block")?.remove();
+  centerDetail.querySelector(".center-address-card")?.remove();
+  centerDetail.querySelector(".center-gallery button")?.remove();
+  centerDetail.querySelector(".center-identity")?.remove();
+  centerDetail.querySelector(".center-history-card button")?.remove();
+
+  const historyTitle = centerDetail.querySelector(".center-history-card h3");
+  if (historyTitle) historyTitle.innerHTML = "Rese&ntilde;a hist&oacute;rica";
+
+  centerDetail.querySelectorAll(".center-hero-actions a").forEach((link, index) => {
+    link.href = centerFormLink;
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+    link.innerHTML = index === 0 ? "Voluntariado" : "Pasant&iacute;a";
+    link.classList.add(index === 0 ? "center-action-volunteer" : "center-action-internship");
+  });
+
+  const gallery = centerDetail.querySelector(".center-gallery");
+  if (gallery) {
+    const galleryTitle = gallery.querySelector("h3");
+    const galleryGrid = gallery.querySelector("div");
+    const impactCards = center.galeria.map((photo, index) => `
+      <article>
+        <img src="${photo}" alt="Alcances e Impacto de ${center.name} ${index + 1}">
+        <p>${centerImpactDescriptions[index % centerImpactDescriptions.length]}</p>
+      </article>
+    `).join("");
+
+    gallery.classList.add("center-impact");
+    if (galleryTitle) galleryTitle.innerHTML = "Alcances e Impacto";
+    if (galleryGrid) galleryGrid.innerHTML = impactCards + impactCards;
+  }
+
+  const bottomActions = centerDetail.querySelector(".center-bottom-actions");
+  if (bottomActions) {
+    bottomActions.insertAdjacentHTML("beforebegin", `
+      <section class="center-social">
+        <h3>S&iacute;guenos para m&aacute;s informaci&oacute;n</h3>
+        <div class="center-social-actions">
+          <a class="center-social-facebook" href="${centerFacebookLink}" target="_blank" rel="noopener noreferrer"><span aria-hidden="true">f</span> Facebook</a>
+          <a class="center-social-whatsapp" href="${centerWhatsappLink}" target="_blank" rel="noopener noreferrer"><span aria-hidden="true">☎</span> WhatsApp</a>
+        </div>
+      </section>
+    `);
+  }
+
   centerDetail.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
