@@ -19,7 +19,6 @@ const mapInfoCenter = document.querySelector("#map-info-center");
 const mapInfoDistrict = document.querySelector("#map-info-district");
 const mapInfoAddress = document.querySelector("#map-info-address");
 const mapDirectionsLink = document.querySelector("#map-directions-link");
-const centersInteractiveMap = document.querySelector("#centers-map");
 const directoryCards = document.querySelectorAll(".flip-card.directory-card");
 const voluntariadoFlipCards = document.querySelectorAll(".voluntariado-flip-card");
 const voluntariadoHelpCards = document.querySelectorAll(".voluntariado-help-content");
@@ -36,8 +35,6 @@ let missionCarouselTimer;
 let currentVisionSlide = 0;
 let visionCarouselTimer;
 let selectedCenterIndex = 0;
-let centersMap;
-let centersMapMarker;
 
 const districts = [
   { name: "Distrito 1", centers: [
@@ -291,64 +288,6 @@ function getDirectionsFromCurrentLocation(center) {
   return `https://www.google.com/maps/dir/?api=1&origin=Current%20Location&destination=${encodeURIComponent(center.address)}`;
 }
 
-function getRedMarkerIcon() {
-  if (!window.L) return null;
-  return L.divIcon({
-    className: "",
-    html: '<div class="custom-red-marker"></div>',
-    iconSize: [28, 28],
-    iconAnchor: [14, 28],
-    popupAnchor: [0, -28]
-  });
-}
-
-function initCentersMap() {
-  const firstCenter = centers[0];
-  if (!centersInteractiveMap || centersMap || !window.L || !firstCenter) return;
-
-  const firstPosition = [firstCenter.lat, firstCenter.lng];
-  centersMap = L.map("centers-map", {
-    center: firstPosition,
-    zoom: 16,
-    scrollWheelZoom: false,
-    zoomControl: true
-  });
-
-  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-    maxZoom: 19,
-    attribution: "&copy; OpenStreetMap contributors"
-  }).addTo(centersMap);
-
-  centersMapMarker = L.marker(firstPosition, {
-    icon: getRedMarkerIcon()
-  }).addTo(centersMap);
-
-  centersMapMarker.bindPopup(firstCenter.name).openPopup();
-
-  setTimeout(() => {
-    centersMap.invalidateSize(true);
-    centersMap.setView(firstPosition, 16);
-  }, 500);
-}
-
-function updateCentersMap(center) {
-  if (!centersInteractiveMap || !window.L || typeof center.lat !== "number" || typeof center.lng !== "number") return;
-
-  if (!centersMap || !centersMapMarker) {
-    initCentersMap();
-  }
-
-  if (!centersMap || !centersMapMarker) return;
-
-  const position = [center.lat, center.lng];
-  centersMapMarker.setLatLng(position);
-  centersMapMarker.bindPopup(center.name).openPopup();
-  centersMap.setView(position, 16);
-
-  setTimeout(() => centersMap.invalidateSize(true), 200);
-  setTimeout(() => centersMap.invalidateSize(true), 500);
-}
-
 function setHeaderState() {
   header.classList.toggle("scrolled", !hasHomeHero || window.scrollY > 24);
 }
@@ -434,7 +373,6 @@ function updateMapInfo(center) {
   if (mapInfoDistrict) mapInfoDistrict.textContent = center.district;
   if (mapInfoAddress) mapInfoAddress.textContent = center.address;
   if (mapDirectionsLink) mapDirectionsLink.href = getDirectionsFromCurrentLocation(center);
-  updateCentersMap(center);
 }
 
 function setActiveMapCenter(centerReference) {
@@ -697,10 +635,7 @@ if (mapCenterButtons.length) {
     if (button.disabled) return;
     button.addEventListener("click", () => setActiveMapCenter(button.dataset.center || Number(button.dataset.centerMap)));
   });
-  const initializeLocationMap = () => {
-    initCentersMap();
-    setActiveMapCenter(mapCenterButtons[0]?.dataset.center || 0);
-  };
+  const initializeLocationMap = () => setActiveMapCenter(mapCenterButtons[0]?.dataset.center || 0);
 
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", initializeLocationMap, { once: true });
@@ -865,7 +800,6 @@ if (statNumbers.length && statsSection) {
 window.addEventListener("scroll", setHeaderState);
 window.addEventListener("resize", () => {
   if (window.innerWidth > 992) closeMobileMenu();
-  if (centersMap) centersMap.invalidateSize(true);
 });
 
 renderDistricts();

@@ -8,7 +8,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lora:wght@600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIINfQkdlA8fJ0eIwN1UMu6EGy5CWDCdWQ=" crossorigin="">
   <link rel="stylesheet" href="style.css">
 </head>
 <body class="home-page">
@@ -221,8 +220,16 @@
       <div class="section-heading centered">
         <h2>Ubicaci&oacute;n de nuestros centros</h2>
       </div>
-      <div class="centers-map-shell">
-        <div class="center-map-buttons" aria-label="Centros infantiles">
+      <div class="centers-layout">
+        <article class="map-info-card center-info-card">
+          <span class="map-info-kicker">CENTRO SELECCIONADO</span>
+          <h3 id="map-selected-label">San Francisco de As&iacute;s</h3>
+          <p><strong>Centro:</strong> <span id="map-info-center">San Francisco de As&iacute;s</span></p>
+          <p><strong>Distrito:</strong> <span id="map-info-district">Distrito 2</span></p>
+          <p><strong>Direcci&oacute;n:</strong> <span id="map-info-address">Zona Cupilupaca, Calle R&iacute;o Bermejo N&deg; 1064, El Alto</span></p>
+          <a id="map-directions-link" class="map-location-button" href="https://www.google.com/maps/dir/?api=1&amp;origin=Current%20Location&amp;destination=San%20Francisco%20de%20As%C3%ADs%2C%20Zona%20Cupilupaca%2C%20Calle%20R%C3%ADo%20Bermejo%20N%C2%B01064%2C%20El%20Alto%2C%20Bolivia" target="_blank" rel="noopener noreferrer">📍 C&oacute;mo llegar</a>
+        </article>
+        <div class="center-map-buttons centers-buttons-panel" aria-label="Centros infantiles">
           <button class="map-center-button center-tab active" type="button" data-center-map="0" data-center="san-francisco">San Francisco de As&iacute;s</button>
           <button class="map-center-button center-tab" type="button" data-center-map="1" data-center="nueva-marka">Nueva Marka</button>
           <button class="map-center-button center-tab" type="button" data-center-map="2" data-center="maria-auxiliadora">Mar&iacute;a Auxiliadora</button>
@@ -235,19 +242,6 @@
           <button class="map-center-button center-tab" type="button" data-center-map="9" data-center="don-bosquito">Don Bosquito</button>
           <button class="map-center-button center-tab" type="button" data-center-map="10" data-center="fundacion-palliri">Fundaci&oacute;n Palliri</button>
           <button class="map-center-button center-tab" type="button" data-center-map="11" data-center="burgosmarka">Burgosmarka</button>
-        </div>
-        <div class="center-location-layout">
-          <article class="map-info-card">
-            <span class="map-info-kicker">CENTRO SELECCIONADO</span>
-            <h3 id="map-selected-label">San Francisco de As&iacute;s</h3>
-            <p><strong>Centro:</strong> <span id="map-info-center">San Francisco de As&iacute;s</span></p>
-            <p><strong>Distrito:</strong> <span id="map-info-district">Distrito 2</span></p>
-            <p><strong>Direcci&oacute;n:</strong> <span id="map-info-address">Zona Cupilupaca, Calle R&iacute;o Bermejo N&deg; 1064, El Alto</span></p>
-            <a id="map-directions-link" class="map-location-button" href="https://www.google.com/maps/dir/?api=1&amp;origin=Current%20Location&amp;destination=San%20Francisco%20de%20As%C3%ADs%2C%20Zona%20Cupilupaca%2C%20Calle%20R%C3%ADo%20Bermejo%20N%C2%B01064%2C%20El%20Alto%2C%20Bolivia" target="_blank" rel="noopener noreferrer">📍 C&oacute;mo llegar</a>
-          </article>
-          <div class="map-card">
-            <div id="centers-map" aria-label="Mapa interactivo de centros"></div>
-          </div>
         </div>
       </div>
     </section>
@@ -279,7 +273,6 @@
     <div class="footer-bottom"><p>Asociaci&oacute;n Wawanakan Kusisi&ntilde;apa | Desde 2008 &ndash; 2026 | <span>18 a&ntilde;os al servicio de la ni&ntilde;ez</span></p><p>&copy; 2026. Todos los derechos reservados.</p></div>
   </footer>
 
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
   <script src="script.js"></script>
 </body>
 </html>
