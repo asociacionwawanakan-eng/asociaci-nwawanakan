@@ -1,4 +1,4 @@
-const header = document.querySelector(".site-header");
+﻿const header = document.querySelector(".site-header");
 const navToggle = document.querySelector(".nav-toggle");
 const siteNav = document.querySelector(".site-nav");
 const navLinks = document.querySelectorAll(".site-nav a");
@@ -479,17 +479,28 @@ function openCenter(districtIndex, centerIndex) {
           </div>
         </section>
 
-        <section class="center-director">
-          <h3>Directora del centro</h3>
-          <article>
-            <img src="${center.directora.foto}" alt="${center.directora.nombre}">
-            <div>
-              <h4>${center.directora.nombre}</h4>
-              <strong>${center.directora.cargo}</strong>
-              <p>${center.directora.descripcion}</p>
+        <div class="director-social-layout">
+          <div class="director-flip-card" id="directorFlipCard" tabindex="0" role="button" aria-label="Ver descripcion de la directora">
+            <div class="director-flip-inner">
+              <div class="director-face director-front">
+                <h3 class="director-section-title">Directora del centro</h3>
+                <img class="director-photo" src="${center.directora.foto}" alt="Directora del centro">
+                <h4 class="director-name">${center.directora.nombre}</h4>
+                <span class="director-role">${center.directora.cargo}</span>
+              </div>
+              <div class="director-face director-back">
+                <h3 class="director-section-title">Directora del centro</h3>
+                <p class="director-description">${center.directora.descripcion}</p>
+              </div>
             </div>
-          </article>
-        </section>
+          </div>
+
+          <div class="social-card">
+            <h3 class="social-title">S&iacute;guenos para m&aacute;s informaci&oacute;n</h3>
+            <a class="social-btn facebook-btn" href="${centerFacebookLink}" target="_blank" rel="noopener noreferrer">Facebook</a>
+            <a class="social-btn whatsapp-btn" href="${centerWhatsappLink}" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+          </div>
+        </div>
 
         <section class="center-gallery">
           <h3>Galeria del centro</h3>
@@ -558,19 +569,6 @@ function openCenter(districtIndex, centerIndex) {
     if (galleryGrid) galleryGrid.innerHTML = impactCards + impactCards;
   }
 
-  const bottomActions = centerDetail.querySelector(".center-bottom-actions");
-  if (bottomActions) {
-    bottomActions.insertAdjacentHTML("beforebegin", `
-      <section class="center-social">
-        <h3>S&iacute;guenos para m&aacute;s informaci&oacute;n</h3>
-        <div class="center-social-actions">
-          <a class="center-social-facebook" href="${centerFacebookLink}" target="_blank" rel="noopener noreferrer"><span aria-hidden="true">f</span> Facebook</a>
-          <a class="center-social-whatsapp" href="${centerWhatsappLink}" target="_blank" rel="noopener noreferrer"><span aria-hidden="true">☎</span> WhatsApp</a>
-        </div>
-      </section>
-    `);
-  }
-
   centerDetail.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
@@ -629,9 +627,23 @@ if (districtGrid) {
 
 if (centerDetail) {
   centerDetail.addEventListener("click", (event) => {
+    const directorCard = event.target.closest(".director-flip-card");
+    if (directorCard) {
+      directorCard.classList.toggle("flipped");
+      return;
+    }
+
     if (!event.target.closest(".close-center")) return;
     centerDetail.hidden = true;
     centerDetail.innerHTML = "";
+  });
+
+  centerDetail.addEventListener("keydown", (event) => {
+    if (event.key !== "Enter" && event.key !== " ") return;
+    const directorCard = event.target.closest(".director-flip-card");
+    if (!directorCard) return;
+    event.preventDefault();
+    directorCard.classList.toggle("flipped");
   });
 }
 
