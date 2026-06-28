@@ -13334,3 +13334,113 @@ body.home-page .centers-map-section .center-location-layout {
     opacity: 1 !important;
   }
 }
+
+/* Responsive general: evitar desbordes horizontales */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+img,
+video,
+canvas,
+svg {
+  max-width: 100%;
+}
+
+img,
+video {
+  height: auto;
+}
+
+section,
+main,
+header,
+footer {
+  max-width: 100%;
+}
+
+@media (max-width: 1024px) {
+  .section-shell,
+  .container,
+  .section-container,
+  .content-wrapper {
+    width: min(100% - 28px, 960px);
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .grid,
+  .cards-grid,
+  .values-grid,
+  .contact-grid,
+  .stats-grid {
+    gap: 18px;
+  }
+}
+
+@media (max-width: 768px) {
+  .section-shell,
+  .container,
+  .section-container,
+  .content-wrapper {
+    width: min(100% - 24px, 720px);
+  }
+
+  h1 {
+    font-size: clamp(2rem, 9vw, 3.4rem);
+  }
+
+  h2 {
+    font-size: clamp(1.8rem, 7vw, 2.8rem);
+  }
+
+  .grid,
+  .cards-grid,
+  .values-grid,
+  .contact-grid,
+  .centers-layout {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .section-shell,
+  .container,
+  .section-container,
+  .content-wrapper {
+    width: min(100% - 20px, 440px);
+  }
+
+  section {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .site-nav {
+    padding: 22px 20px !important;
+  }
+
+  .site-nav a,
+  .site-nav button {
+    font-size: 1.05rem;
+  }
+
+  .site-nav .submenu a {
+    font-size: 0.95rem;
+  }
+
+  .button,
+  .btn {
+    max-width: 100%;
+    white-space: normal;
+  }
+}
