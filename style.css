@@ -13249,3 +13249,88 @@ body.home-page .centers-map-section .center-location-layout {
     white-space: normal;
   }
 }
+
+/* Menu movil: subopciones legibles sobre fondo guindo */
+@media (max-width: 992px) {
+  .site-nav .submenu {
+    background: rgba(255, 244, 230, 0.08) !important;
+    border-left-color: #ffc928 !important;
+    opacity: 1 !important;
+    visibility: visible;
+  }
+
+  .site-nav .submenu a {
+    color: #ffffff !important;
+    opacity: 1 !important;
+    font-weight: 800 !important;
+    line-height: 1.35;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+  }
+
+  .site-nav .submenu a:hover,
+  .site-nav .submenu a:focus-visible {
+    color: #ffc928 !important;
+    background: rgba(255, 201, 40, 0.14) !important;
+  }
+
+  .has-submenu > .nav-link {
+    color: #fff4e6 !important;
+  }
+
+  .has-submenu > .nav-link::after {
+    color: #ffc928 !important;
+    opacity: 1 !important;
+    font-weight: 900;
+  }
+
+  .site-nav > a.nav-link::after {
+    content: none;
+  }
+}
+
+/* Refuerzo final: contraste de submenus en hamburguesa */
+@media (max-width: 992px) {
+  body .site-header .site-nav.open .submenu,
+  body .site-header.open .site-nav .submenu,
+  body .site-nav .has-submenu.open .submenu {
+    display: flex;
+    margin-top: 8px;
+    padding: 12px 14px 12px 18px;
+    background: rgba(66, 19, 4, 0.58) !important;
+    border: 1px solid rgba(255, 201, 40, 0.28) !important;
+    border-left: 3px solid #ffc928 !important;
+    border-radius: 14px;
+  }
+
+  body .site-header .site-nav.open .submenu a,
+  body .site-header .site-nav.open .submenu a:visited,
+  body .site-header.open .site-nav .submenu a,
+  body .site-nav .has-submenu.open .submenu a {
+    display: block;
+    color: #ffffff !important;
+    opacity: 1 !important;
+    font-size: 1rem;
+    font-weight: 850 !important;
+    line-height: 1.4;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.45);
+  }
+
+  body .site-header .site-nav.open .submenu a:hover,
+  body .site-header .site-nav.open .submenu a:focus-visible,
+  body .site-nav .has-submenu.open .submenu a:hover {
+    color: #ffc928 !important;
+    background: rgba(255, 201, 40, 0.16) !important;
+  }
+
+  body .site-header .site-nav.open .has-submenu > .nav-link,
+  body .site-header.open .has-submenu > .nav-link {
+    color: #fff4e6 !important;
+    opacity: 1 !important;
+  }
+
+  body .site-header .site-nav.open .has-submenu > .nav-link::after,
+  body .site-header.open .has-submenu > .nav-link::after {
+    color: #ffc928 !important;
+    opacity: 1 !important;
+  }
+}
