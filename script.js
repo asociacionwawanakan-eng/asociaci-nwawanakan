@@ -3,6 +3,7 @@ const navToggle = document.querySelector(".nav-toggle");
 const siteNav = document.querySelector(".site-nav");
 const navLinks = document.querySelectorAll(".site-nav a");
 const submenuItems = document.querySelectorAll(".has-submenu");
+const viewToggle = document.querySelector(".view-toggle");
 const slides = document.querySelectorAll(".hero-slide");
 const dots = document.querySelectorAll(".hero-dot");
 const missionSlides = document.querySelectorAll(".mission-carousel-slide");
@@ -400,6 +401,29 @@ function closeMobileMenu() {
   });
 }
 
+function setViewToggleLabel() {
+  if (!viewToggle) return;
+  const isDesktopView = document.body.classList.contains("desktop-view");
+  viewToggle.textContent = isDesktopView ? "Vista móvil" : "Vista PC";
+  viewToggle.setAttribute("aria-pressed", String(isDesktopView));
+}
+
+function applySavedView() {
+  if (!viewToggle) return;
+  const savedView = localStorage.getItem("wawanakanView");
+  document.body.classList.toggle("desktop-view", savedView === "desktop");
+  if (savedView === "desktop") closeMobileMenu();
+  setViewToggleLabel();
+}
+
+function toggleViewMode() {
+  if (!viewToggle) return;
+  const isDesktopView = document.body.classList.toggle("desktop-view");
+  localStorage.setItem("wawanakanView", isDesktopView ? "desktop" : "mobile");
+  if (isDesktopView) closeMobileMenu();
+  setViewToggleLabel();
+}
+
 function renderDistricts() {
   if (!districtGrid) return;
   districtGrid.innerHTML = districts.map((district, districtIndex) => `
@@ -603,6 +627,11 @@ submenuItems.forEach((item) => {
 });
 
 navLinks.forEach((link) => link.addEventListener("click", closeMobileMenu));
+
+if (viewToggle) {
+  applySavedView();
+  viewToggle.addEventListener("click", toggleViewMode);
+}
 
 dots.forEach((dot, index) => {
   dot.addEventListener("click", () => {

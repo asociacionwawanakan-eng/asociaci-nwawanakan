@@ -13445,6 +13445,135 @@ footer {
   }
 }
 
+.view-toggle {
+  position: fixed;
+  right: 16px;
+  bottom: 18px;
+  z-index: 10050;
+  border: none;
+  border-radius: 999px;
+  background: #ffc928;
+  color: #421304;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.88rem;
+  font-weight: 900;
+  line-height: 1;
+  padding: 10px 16px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+}
+
+.view-toggle:hover,
+.view-toggle:focus-visible {
+  background: #ffd85a;
+  box-shadow: 0 12px 26px rgba(255, 201, 40, 0.28);
+  transform: translateY(-2px);
+}
+
+body.desktop-view {
+  min-width: 1100px;
+  overflow-x: auto;
+}
+
+body.desktop-view .site-header {
+  min-width: 1100px;
+}
+
+body.desktop-view .nav-toggle {
+  display: none !important;
+}
+
+body.desktop-view .site-nav {
+  position: static !important;
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
+  gap: 18px !important;
+  width: auto !important;
+  max-height: none !important;
+  padding: 0 !important;
+  overflow: visible !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+body.desktop-view .site-nav > a,
+body.desktop-view .site-nav .nav-link {
+  width: auto !important;
+  padding: 0 !important;
+  color: var(--guindo);
+  text-align: left !important;
+}
+
+body.desktop-view .site-header.scrolled .site-nav > a,
+body.desktop-view .site-header.scrolled .site-nav .nav-link,
+body.desktop-view .site-header.open .site-nav > a,
+body.desktop-view .site-header.open .site-nav .nav-link {
+  color: var(--cream) !important;
+}
+
+body.desktop-view .nav-item {
+  width: auto !important;
+}
+
+body.desktop-view .nav-link {
+  display: inline-flex !important;
+}
+
+body.desktop-view .nav-link::after {
+  position: absolute !important;
+  left: 0 !important;
+  bottom: 4px !important;
+  width: 0 !important;
+  height: 3px !important;
+  content: "" !important;
+  border-radius: 999px !important;
+  background: var(--gold) !important;
+  transform: none !important;
+}
+
+body.desktop-view .has-submenu:hover .nav-link::after,
+body.desktop-view .has-submenu.open .nav-link::after {
+  width: 100% !important;
+}
+
+body.desktop-view .submenu {
+  position: absolute !important;
+  top: calc(100% + 8px) !important;
+  left: 50% !important;
+  display: block !important;
+  min-width: 210px !important;
+  width: auto !important;
+  margin: 0 !important;
+  padding: 10px !important;
+  border: 1px solid rgba(255, 244, 230, 0.16) !important;
+  border-radius: 16px !important;
+  background: rgba(42, 11, 3, 0.96) !important;
+  box-shadow: var(--shadow) !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  overflow: visible !important;
+  transform: translateX(-50%) translateY(8px) !important;
+}
+
+body.desktop-view .has-submenu:hover .submenu,
+body.desktop-view .has-submenu.open .submenu {
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: translateX(-50%) translateY(0) !important;
+}
+
+body.desktop-view .container,
+body.desktop-view .section-container,
+body.desktop-view .content-wrapper,
+body.desktop-view .section-shell {
+  max-width: 1200px;
+}
+
 /* Correccion final del acordeon del menu movil */
 @media (max-width: 992px) {
   body .site-header .site-nav.open {
