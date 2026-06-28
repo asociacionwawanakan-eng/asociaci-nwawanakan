@@ -64,34 +64,35 @@
           </a>
         </div>
 
-        <form class="contact-message-form contact-form" id="contact-form" action="https://formsubmit.co/presidencia.wawanakan@gmail.com" method="POST">
+        <form id="contactForm" class="contact-message-form contact-form">
           <div class="contact-form-copy">
             <h2>Formulario de contacto</h2>
             <p>Escr&iacute;benos y nos pondremos en contacto contigo.</p>
           </div>
 
-          <label>
-            <span>Nombre completo</span>
-            <input type="text" name="name" placeholder="Nombre completo de la persona u organizaci&oacute;n" required>
-          </label>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="nombre">Nombre completo</label>
+              <input id="nombre" type="text" name="name" placeholder="Nombre completo de la persona u organizaci&oacute;n" required>
+            </div>
 
-          <label>
-            <span>Correo electr&oacute;nico</span>
-            <input type="email" name="email" placeholder="Escribe tu correo electr&oacute;nico" required>
-          </label>
+            <div class="form-group">
+              <label for="correo">Correo electr&oacute;nico</label>
+              <input id="correo" type="email" name="email" placeholder="Escribe tu correo electr&oacute;nico" required>
+            </div>
+          </div>
 
-          <label class="contact-message-field">
-            <span>Mensaje</span>
-            <textarea name="message" rows="5" placeholder="Escribe tu mensaje o consulta" required></textarea>
-          </label>
+          <div class="form-group contact-message-field">
+            <label for="mensaje">Mensaje</label>
+            <textarea id="mensaje" name="message" rows="5" placeholder="Escribe tu mensaje o consulta" required></textarea>
+          </div>
 
           <input type="hidden" name="_subject" value="Nuevo mensaje desde la p&aacute;gina web Wawanakan">
           <input type="hidden" name="_template" value="table">
           <input type="hidden" name="_captcha" value="false">
-          <input type="hidden" name="_next" value="https://asociacionwawanakan-eng.github.io/asociaci-nwawanakan/#contacto">
 
-          <button class="contact-submit-button" type="submit">Enviar mensaje a Presidencia</button>
-          <p class="contact-form-status" id="contact-form-status" role="status" aria-live="polite"></p>
+          <button class="contact-submit-button contact-submit" type="submit">Enviar mensaje a Presidencia</button>
+          <p id="contactStatus" class="contact-form-status contact-status" role="status" aria-live="polite"></p>
         </form>
       </div>
     </section>

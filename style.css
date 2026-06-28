@@ -12888,10 +12888,22 @@ a.contact-info-card:focus-visible {
 }
 
 .contact-form-copy,
+.contact-form .form-row,
 .contact-message-field,
 .contact-submit-button,
 .contact-form-status {
   grid-column: 1 / -1;
+}
+
+.contact-form .form-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.contact-form .form-group {
+  display: grid;
+  gap: 7px;
 }
 
 .contact-form-copy {
@@ -12913,6 +12925,11 @@ a.contact-info-card:focus-visible {
 .contact-message-form label {
   display: grid;
   gap: 7px;
+  color: #fff4e6;
+  font-weight: 900;
+}
+
+.contact-form .form-group > label {
   color: #fff4e6;
   font-weight: 900;
 }
@@ -12981,6 +12998,26 @@ a.contact-info-card:focus-visible {
   color: #ffc928;
 }
 
+.contact-status {
+  margin-top: 12px;
+  color: #ffc928;
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.contact-status.sending {
+  color: #ffc928;
+}
+
+.contact-status.success {
+  color: #22c55e;
+}
+
+.contact-status.error {
+  color: #ef4444;
+}
+
 @media (max-width: 900px) {
   .contact-hero-section {
     padding: 44px 16px 34px;
@@ -13003,6 +13040,10 @@ a.contact-info-card:focus-visible {
 
   .contact-card-grid,
   .contact-message-form {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-form .form-row {
     grid-template-columns: 1fr;
   }
 
@@ -14902,14 +14943,15 @@ body.home-page #alcances .stat-card h3 {
   .inicio-hero h1 {
     width: 100% !important;
     max-width: 100% !important;
-    margin: 0 auto 18px !important;
-    font-size: clamp(2.35rem, 10vw, 3.45rem) !important;
-    line-height: 0.98 !important;
-    letter-spacing: -0.5px !important;
+    margin: 0 auto 16px !important;
+    font-size: clamp(1.95rem, 9vw, 2.9rem) !important;
+    line-height: 1.02 !important;
+    letter-spacing: -0.8px !important;
     text-align: center !important;
     word-break: normal !important;
     overflow-wrap: normal !important;
     hyphens: none !important;
+    white-space: normal !important;
   }
 
   body.home-page .hero .hero-title span,
@@ -14919,13 +14961,20 @@ body.home-page #alcances .stat-card h3 {
     white-space: nowrap !important;
     word-break: normal !important;
     overflow-wrap: normal !important;
+    hyphens: none !important;
   }
 
   body.home-page .hero-content,
   body.home-page .hero.first-slide-active .hero-content,
   .hero-text {
+    left: 0 !important;
+    right: 0 !important;
     align-items: center !important;
     max-width: 100% !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
     padding-left: 18px !important;
     padding-right: 18px !important;
     text-align: center !important;
@@ -14936,7 +14985,24 @@ body.home-page #alcances .stat-card h3 {
   body.home-page .hero .hero-title,
   body.home-page .hero-content h1,
   .inicio-hero h1 {
-    font-size: clamp(2.05rem, 9.4vw, 3rem) !important;
-    line-height: 1 !important;
+    font-size: clamp(1.75rem, 8.6vw, 2.45rem) !important;
+    line-height: 1.04 !important;
+    letter-spacing: -0.6px !important;
   }
+}
+
+@media (max-width: 360px) {
+  body.home-page .hero .hero-title,
+  body.home-page .hero-content h1,
+  .inicio-hero h1 {
+    font-size: 1.65rem !important;
+    line-height: 1.05 !important;
+  }
+}
+
+.hero-title,
+.hero-title span {
+  word-break: normal !important;
+  overflow-wrap: normal !important;
+  hyphens: none !important;
 }

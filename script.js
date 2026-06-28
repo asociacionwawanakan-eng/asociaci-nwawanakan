@@ -25,6 +25,8 @@ const voluntariadoHelpCards = document.querySelectorAll(".voluntariado-help-cont
 const pasantiaProcessCards = document.querySelectorAll(".pasantia-process-card");
 const valueFlipCards = document.querySelectorAll(".values-feature .flip-card.value-card");
 const applyFlipCards = document.querySelectorAll(".apply-flip-card");
+const contactForm = document.getElementById("contactForm");
+const contactStatus = document.getElementById("contactStatus");
 
 let currentSlide = 0;
 let carouselTimer;
@@ -722,6 +724,48 @@ valueFlipCards.forEach((card) => {
     card.classList.toggle("flipped");
   });
 });
+
+if (contactForm) {
+  contactForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const formData = new FormData(contactForm);
+
+    if (contactStatus) {
+      contactStatus.textContent = "Enviando mensaje...";
+      contactStatus.className = "contact-form-status contact-status sending";
+    }
+
+    try {
+      const response = await fetch("https://formsubmit.co/ajax/presidencia.wawanakan@gmail.com", {
+        method: "POST",
+        body: formData,
+        headers: {
+          Accept: "application/json",
+        },
+      });
+
+      if (response.ok) {
+        if (contactStatus) {
+          contactStatus.textContent = "Mensaje enviado correctamente. Gracias por contactarnos.";
+          contactStatus.className = "contact-form-status contact-status success";
+        }
+        contactForm.reset();
+        return;
+      }
+
+      if (contactStatus) {
+        contactStatus.textContent = "No se pudo enviar el mensaje. Intenta nuevamente.";
+        contactStatus.className = "contact-form-status contact-status error";
+      }
+    } catch (error) {
+      if (contactStatus) {
+        contactStatus.textContent = "Error de conexion. Intenta nuevamente.";
+        contactStatus.className = "contact-form-status contact-status error";
+      }
+    }
+  });
+}
 
 voluntariadoHelpCards.forEach((card) => {
   const toggleHelpCard = () => {
