@@ -13449,7 +13449,7 @@ footer {
   position: fixed;
   right: 16px;
   bottom: 18px;
-  z-index: 10050;
+  z-index: 99999;
   border: none;
   border-radius: 999px;
   background: #ffc928;
@@ -13461,6 +13461,7 @@ footer {
   font-weight: 900;
   line-height: 1;
   padding: 10px 16px;
+  pointer-events: auto;
   transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
 }
 
@@ -13472,19 +13473,26 @@ footer {
 }
 
 body.desktop-view {
-  min-width: 1100px;
+  min-width: 1200px;
+  overflow-x: auto;
+}
+
+html.desktop-view-root {
+  min-width: 1200px;
   overflow-x: auto;
 }
 
 body.desktop-view .site-header {
-  min-width: 1100px;
+  min-width: 1200px;
 }
 
-body.desktop-view .nav-toggle {
+body.desktop-view .nav-toggle,
+body.desktop-view .menu-toggle {
   display: none !important;
 }
 
-body.desktop-view .site-nav {
+body.desktop-view .site-nav,
+body.desktop-view .desktop-nav {
   position: static !important;
   display: flex !important;
   flex-direction: row !important;
@@ -13499,6 +13507,10 @@ body.desktop-view .site-nav {
   border: 0 !important;
   box-shadow: none !important;
   transform: none !important;
+}
+
+body.desktop-view .mobile-menu {
+  display: none !important;
 }
 
 body.desktop-view .site-nav > a,

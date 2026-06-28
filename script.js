@@ -401,27 +401,56 @@ function closeMobileMenu() {
   });
 }
 
-function setViewToggleLabel() {
+function getViewportMeta() {
+  let viewportMeta = document.querySelector('meta[name="viewport"]');
+  if (!viewportMeta) {
+    viewportMeta = document.createElement("meta");
+    viewportMeta.setAttribute("name", "viewport");
+    document.head.appendChild(viewportMeta);
+  }
+  return viewportMeta;
+}
+
+function setMobileView() {
   if (!viewToggle) return;
-  const isDesktopView = document.body.classList.contains("desktop-view");
-  viewToggle.textContent = isDesktopView ? "Vista móvil" : "Vista PC";
-  viewToggle.setAttribute("aria-pressed", String(isDesktopView));
+  const viewportMeta = getViewportMeta();
+  document.documentElement.classList.remove("desktop-view-root");
+  document.body.classList.remove("desktop-view");
+  viewportMeta.setAttribute("content", "width=device-width, initial-scale=1.0");
+  viewToggle.textContent = "Vista PC";
+  viewToggle.setAttribute("aria-pressed", "false");
+  localStorage.setItem("wawanakanView", "mobile");
+}
+
+function setDesktopView() {
+  if (!viewToggle) return;
+  const viewportMeta = getViewportMeta();
+  document.documentElement.classList.add("desktop-view-root");
+  document.body.classList.add("desktop-view");
+  viewportMeta.setAttribute("content", "width=1200, initial-scale=0.35");
+  viewToggle.textContent = "Vista móvil";
+  viewToggle.setAttribute("aria-pressed", "true");
+  localStorage.setItem("wawanakanView", "desktop");
+  closeMobileMenu();
 }
 
 function applySavedView() {
   if (!viewToggle) return;
   const savedView = localStorage.getItem("wawanakanView");
-  document.body.classList.toggle("desktop-view", savedView === "desktop");
-  if (savedView === "desktop") closeMobileMenu();
-  setViewToggleLabel();
+  if (savedView === "desktop") {
+    setDesktopView();
+  } else {
+    setMobileView();
+  }
 }
 
 function toggleViewMode() {
   if (!viewToggle) return;
-  const isDesktopView = document.body.classList.toggle("desktop-view");
-  localStorage.setItem("wawanakanView", isDesktopView ? "desktop" : "mobile");
-  if (isDesktopView) closeMobileMenu();
-  setViewToggleLabel();
+  if (document.body.classList.contains("desktop-view")) {
+    setMobileView();
+  } else {
+    setDesktopView();
+  }
 }
 
 function renderDistricts() {
