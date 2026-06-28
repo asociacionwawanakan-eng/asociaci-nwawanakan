@@ -13665,3 +13665,62 @@ footer {
     padding: 28px 18px;
   }
 }
+
+/* Valores en movil: dos columnas sin desborde horizontal */
+@media (max-width: 768px) {
+  .values-grid,
+  .valores-grid,
+  .values-cards,
+  .valores-cards,
+  body.home-page .values-feature .values-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 16px;
+    justify-content: center;
+    align-items: stretch;
+    overflow: visible;
+  }
+
+  .values-grid > article,
+  .values-grid > .value-card,
+  .valores-grid > .valor-card,
+  .values-cards > .value-card,
+  .valores-cards > .valor-card,
+  body.home-page .values-feature .flip-card.value-card {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    justify-self: stretch;
+  }
+
+  .values-grid > article:last-child:nth-child(odd),
+  .values-grid > .value-card:last-child:nth-child(odd),
+  .valores-grid > .valor-card:last-child:nth-child(odd),
+  .values-cards > .value-card:last-child:nth-child(odd),
+  .valores-cards > .valor-card:last-child:nth-child(odd),
+  body.home-page .values-feature .flip-card.value-card:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+    justify-self: center;
+    width: 100%;
+    max-width: 220px;
+  }
+}
+
+@media (max-width: 480px) {
+  .values-grid,
+  .valores-grid,
+  .values-cards,
+  .valores-cards,
+  body.home-page .values-feature .values-grid {
+    gap: 14px;
+  }
+
+  .values-grid > article:last-child:nth-child(odd),
+  .values-grid > .value-card:last-child:nth-child(odd),
+  .valores-grid > .valor-card:last-child:nth-child(odd),
+  .values-cards > .value-card:last-child:nth-child(odd),
+  .valores-cards > .valor-card:last-child:nth-child(odd),
+  body.home-page .values-feature .flip-card.value-card:last-child:nth-child(odd) {
+    max-width: 200px;
+  }
+}
