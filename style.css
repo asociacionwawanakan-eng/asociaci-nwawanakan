@@ -14890,3 +14890,53 @@ body.home-page #alcances .stat-card h3 {
     font-size: 0.74rem;
   }
 }
+
+/* Inicio movil: titulo en tres lineas limpias */
+.hero-title span {
+  display: block;
+}
+
+@media (max-width: 768px) {
+  body.home-page .hero .hero-title,
+  body.home-page .hero-content h1,
+  .inicio-hero h1 {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 auto 18px !important;
+    font-size: clamp(2.35rem, 10vw, 3.45rem) !important;
+    line-height: 0.98 !important;
+    letter-spacing: -0.5px !important;
+    text-align: center !important;
+    word-break: normal !important;
+    overflow-wrap: normal !important;
+    hyphens: none !important;
+  }
+
+  body.home-page .hero .hero-title span,
+  body.home-page .hero-content h1 span,
+  .inicio-hero h1 span {
+    display: block !important;
+    white-space: nowrap !important;
+    word-break: normal !important;
+    overflow-wrap: normal !important;
+  }
+
+  body.home-page .hero-content,
+  body.home-page .hero.first-slide-active .hero-content,
+  .hero-text {
+    align-items: center !important;
+    max-width: 100% !important;
+    padding-left: 18px !important;
+    padding-right: 18px !important;
+    text-align: center !important;
+  }
+}
+
+@media (max-width: 420px) {
+  body.home-page .hero .hero-title,
+  body.home-page .hero-content h1,
+  .inicio-hero h1 {
+    font-size: clamp(2.05rem, 9.4vw, 3rem) !important;
+    line-height: 1 !important;
+  }
+}
