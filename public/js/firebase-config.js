@@ -29,7 +29,7 @@ export const FIREBASE_CONFIG = {
 };
 
 export const CLOUDINARY = {
-  cloudName: "diswqpy8v",
+  cloudName: "dwb74j9jl",
   uploadPreset: "wawanakan_cms",
   folder: "wawanakan"
 };
