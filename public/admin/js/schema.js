@@ -119,8 +119,7 @@ export const SECTIONS = [
       { key: "nombre", label: "Nombre completo", type: "text" },
       { key: "cargo", label: "Cargo", type: "text" },
       { key: "descripcionCargo", label: "Descripción del cargo", type: "textarea" },
-      { key: "foto", label: "Fotografía", type: "image", folder: "equipo" },
-      { key: "orden", label: "Orden", type: "text" }
+      { key: "foto", label: "Fotografía", type: "image", folder: "equipo" }
     ]
   },
 

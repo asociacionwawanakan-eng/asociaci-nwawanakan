@@ -135,11 +135,28 @@ async function renderCollection(section) {
   editorArea.innerHTML = "";
   const list = el("div", { class: "cms-objlist" });
 
+  const renumber = () => {
+    Array.from(list.querySelectorAll(":scope > .cms-objlist-item")).forEach((it, i) => {
+      const label = it.querySelector(".cms-objlist-head strong");
+      if (label) label.textContent = `${section.itemLabel || "Elemento"} ${i + 1}`;
+    });
+  };
+
   const makeItem = (itemData) => {
     const form = buildForm(section.fields, itemData || {});
     const head = el("div", { class: "cms-objlist-head" }, [
-      el("strong", { text: itemData && itemData[section.fields[0].key] ? itemData[section.fields[0].key] : (section.itemLabel || "Nuevo") }),
-      el("button", { class: "cms-icon-btn cms-icon-danger", type: "button", text: "Eliminar", onclick: () => item.remove() })
+      el("strong", { text: section.itemLabel || "Elemento" }),
+      el("div", { class: "cms-objlist-actions" }, [
+        el("button", { class: "cms-icon-btn", type: "button", text: "↑", title: "Subir",
+          onclick: () => { const p = item.previousElementSibling; if (p) list.insertBefore(item, p); renumber(); }
+        }),
+        el("button", { class: "cms-icon-btn", type: "button", text: "↓", title: "Bajar",
+          onclick: () => { const n = item.nextElementSibling; if (n) list.insertBefore(n, item); renumber(); }
+        }),
+        el("button", { class: "cms-icon-btn cms-icon-danger", type: "button", text: "✕", title: "Eliminar",
+          onclick: () => { item.remove(); renumber(); }
+        })
+      ])
     ]);
     const item = el("div", { class: "cms-objlist-item" }, [head, form.node]);
     item.__id = itemData && itemData.id ? itemData.id : null;
@@ -148,11 +165,12 @@ async function renderCollection(section) {
   };
 
   items.forEach((it) => list.appendChild(makeItem(it)));
+  renumber();
   editorArea.appendChild(list);
 
   const addBtn = el("button", {
     class: "cms-btn cms-btn-soft", type: "button", text: `+ Añadir ${section.itemLabel || "elemento"}`,
-    onclick: () => list.appendChild(makeItem({}))
+    onclick: () => { list.appendChild(makeItem({})); renumber(); }
   });
 
   const saveBtn = el("button", {
@@ -162,18 +180,18 @@ async function renderCollection(section) {
       try {
         const used = new Set();
         const nodes = Array.from(list.querySelectorAll(":scope > .cms-objlist-item"));
-        for (const node of nodes) {
-          const values = node.__collect();
-          let id = node.__id || slugify(values[section.storage.idFrom]);
+        for (let i = 0; i < nodes.length; i++) {
+          const values = nodes[i].__collect();
+          let id = nodes[i].__id || slugify(values[section.storage.idFrom]);
           while (used.has(id)) id += "-2";
           used.add(id);
-          await setCollectionDoc(section.storage.name, id, values);
+          await setCollectionDoc(section.storage.name, id, { ...values, orden: i });
         }
         for (const oid of originalIds) {
           if (!used.has(oid)) await deleteCollectionDoc(section.storage.name, oid);
         }
         showToast("Cambios guardados correctamente.");
-        selectSection(section); // refrescar ids
+        selectSection(section);
       } catch (err) {
         showToast(`No se pudo guardar: ${err.message}`, "error");
       } finally {
