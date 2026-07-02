@@ -12196,20 +12196,19 @@ body.home-page #alcances .stat-card h3 {
   hyphens: none !important;
 }
 
-:style.css
-/* Voluntariado: beneficios en dos columnas con imagen lateral */
+/* Voluntariado: beneficios en dos columnas con imagen real */
 .voluntariado-benefits {
   margin: 0 !important;
-  padding: clamp(48px, 6vw, 80px) 24px !important;
+  padding: clamp(40px, 5vw, 70px) 24px !important;
   background:
-    radial-gradient(circle at 18% 18%, rgba(255, 201, 40, 0.15), transparent 32%),
-    linear-gradient(135deg, rgba(66, 19, 4, 0.72), rgba(42, 11, 3, 0.52)) !important;
+    radial-gradient(circle at 18% 18%, rgba(255, 201, 40, 0.14), transparent 32%),
+    linear-gradient(135deg, rgba(66, 19, 4, 0.92), rgba(84, 38, 22, 0.88)) !important;
 }
 
 .voluntariado-benefits .voluntariado-shell {
   display: grid !important;
-  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr) !important;
-  gap: clamp(24px, 4vw, 56px) !important;
+  grid-template-columns: minmax(0, 1.1fr) minmax(340px, 0.9fr) !important;
+  gap: clamp(28px, 4vw, 56px) !important;
   align-items: center !important;
   max-width: 1180px !important;
   margin: 0 auto !important;
@@ -12217,36 +12216,47 @@ body.home-page #alcances .stat-card h3 {
 }
 
 .voluntariado-benefits .voluntariado-shell::before {
-  content: "";
-  grid-column: 1;
-  grid-row: 1 / span 2;
-  align-self: stretch;
-  min-height: 430px;
-  max-height: 520px;
-  border: 1px solid rgba(255, 201, 40, 0.28);
-  border-radius: 28px;
-  background:
-    linear-gradient(180deg, rgba(66, 19, 4, 0.06), rgba(66, 19, 4, 0.18)),
-    url("assets/voluntariado.png") center / cover no-repeat;
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.28);
+  display: none !important;
+  content: none !important;
 }
 
-.voluntariado-benefits .voluntariado-section-heading {
-  grid-column: 2 !important;
+.voluntariado-image-wrap {
+  width: 100% !important;
+}
+
+.voluntariado-image-wrap .voluntariado-photo-card {
+  margin: 0 !important;
+}
+
+.voluntariado-image-wrap img {
+  display: block !important;
+  width: 100% !important;
+  height: clamp(360px, 42vw, 520px) !important;
+  object-fit: cover !important;
+  border-radius: 26px !important;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.32) !important;
+}
+
+.voluntariado-content {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+}
+
+.voluntariado-content .voluntariado-section-heading {
   margin: 0 0 28px !important;
   text-align: left !important;
 }
 
-.voluntariado-benefits .voluntariado-section-heading h2 {
+.voluntariado-content h2 {
   margin: 0 !important;
   color: #ffc928 !important;
-  font-size: clamp(2.2rem, 4vw, 4rem) !important;
+  font-size: clamp(2.3rem, 4vw, 4rem) !important;
   line-height: 0.95 !important;
-  letter-spacing: 0 !important;
 }
 
+.voluntariado-cards,
 .voluntariado-benefits .voluntariado-benefit-grid {
-  grid-column: 2 !important;
   display: grid !important;
   grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
   gap: 18px !important;
@@ -12256,19 +12266,19 @@ body.home-page #alcances .stat-card h3 {
   align-items: stretch !important;
 }
 
+.voluntariado-card,
 .voluntariado-benefits .voluntariado-benefit-card {
-  min-height: 145px !important;
+  min-height: 140px !important;
   height: auto !important;
   padding: 22px 18px !important;
   border: 1px solid rgba(255, 201, 40, 0.35) !important;
   border-radius: 18px !important;
-  background: rgba(255, 244, 230, 0.92) !important;
+  background: rgba(255, 244, 230, 0.94) !important;
   box-shadow: 0 14px 35px rgba(0, 0, 0, 0.18) !important;
   color: #421304 !important;
   text-align: center !important;
   justify-content: center !important;
   overflow: hidden !important;
-  transition: transform 0.25s ease, box-shadow 0.25s ease !important;
 }
 
 .voluntariado-benefits .voluntariado-benefit-card:hover {
@@ -12276,7 +12286,10 @@ body.home-page #alcances .stat-card h3 {
   box-shadow: 0 18px 45px rgba(0, 0, 0, 0.25) !important;
 }
 
+.voluntariado-card-icon,
 .voluntariado-benefits .voluntariado-benefit-icon {
+  display: grid !important;
+  place-items: center !important;
   width: 46px !important;
   height: 46px !important;
   margin: 0 auto 14px !important;
@@ -12287,33 +12300,18 @@ body.home-page #alcances .stat-card h3 {
 }
 
 @media (max-width: 900px) {
-  .voluntariado-benefits {
-    padding: 42px 18px !important;
-  }
-
   .voluntariado-benefits .voluntariado-shell {
     grid-template-columns: 1fr !important;
-    gap: 24px !important;
   }
 
-  .voluntariado-benefits .voluntariado-shell::before {
-    grid-column: 1 !important;
-    grid-row: auto !important;
-    min-height: 340px;
-  }
-
-  .voluntariado-benefits .voluntariado-section-heading,
-  .voluntariado-benefits .voluntariado-benefit-grid {
-    grid-column: 1 !important;
-  }
-
-  .voluntariado-benefits .voluntariado-section-heading {
-    margin-bottom: 4px !important;
+  .voluntariado-content h2,
+  .voluntariado-content .voluntariado-section-heading {
     text-align: center !important;
   }
 
+  .voluntariado-cards,
   .voluntariado-benefits .voluntariado-benefit-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    grid-template-columns: 1fr 1fr !important;
   }
 }
 
@@ -12322,14 +12320,17 @@ body.home-page #alcances .stat-card h3 {
     padding: 36px 16px !important;
   }
 
-  .voluntariado-benefits .voluntariado-shell::before {
-    min-height: 280px;
-    border-radius: 22px;
+  .voluntariado-image-wrap img {
+    height: 300px !important;
+    border-radius: 22px !important;
   }
 
+  .voluntariado-cards,
   .voluntariado-benefits .voluntariado-benefit-grid {
     grid-template-columns: 1fr !important;
-=======
+  }
+}
+
 /* ==============================================
    ACCESIBILIDAD: prefers-reduced-motion
    Suprime todas las animaciones y transiciones
@@ -12341,6 +12342,5 @@ body.home-page #alcances .stat-card h3 {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
->>>>>>> 2b965c496fdf8e742dce29707e8de7057f8862b6:public/css/style.css
   }
 }
