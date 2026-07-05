@@ -92,7 +92,17 @@ function getCenterProfile(district, name, image) {
   const imageFile = detail.image || image;
   // Soporta tanto nombres de archivo locales (assets/centros/…) como URLs
   // absolutas subidas al CMS (Cloudinary).
-  const imagePath = /^https?:\/\//.test(imageFile) ? imageFile : `assets/centros/${imageFile}`;
+  const normalizeCenterImage = (file) => {
+    const value = String(file || "").trim();
+    if (!value) return "";
+    if (/^https?:\/\//.test(value) || value.startsWith("assets/")) return value;
+    return `assets/centros/${value}`;
+  };
+  const imagePath = normalizeCenterImage(imageFile);
+  const galleryImages = Array.from({ length: 4 }, (_, index) => {
+    const photo = Array.isArray(detail.fotos) ? detail.fotos[index] : "";
+    return normalizeCenterImage(photo) || imagePath;
+  });
   const address = detail.address || "Direccion institucional por actualizar, El Alto";
   return {
     name: displayName,
@@ -112,7 +122,7 @@ function getCenterProfile(district, name, image) {
       foto: "assets/equipo/presidenta1.png",
       descripcion: "Lidera la gestión del centro con compromiso, vocación de servicio y enfoque en el bienestar integral de la niñez y sus familias."
     },
-    galeria: [imagePath, imagePath, imagePath, imagePath],
+    galeria: galleryImages,
     actividades: centerActivities
   };
 }

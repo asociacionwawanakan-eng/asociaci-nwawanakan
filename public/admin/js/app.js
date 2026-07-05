@@ -257,7 +257,11 @@ async function renderCentros(section) {
     { key: "subtitulo", label: "Subtítulo", type: "text" },
     { key: "address",   label: "Dirección", type: "text" },
     { key: "mapsLink",  label: "Enlace 'Cómo llegar al centro'", type: "url" },
-    { key: "image",     label: "Imagen del centro", type: "image", folder: "centros" }
+    { key: "image",     label: "Imagen del centro", type: "image", folder: "centros" },
+    { key: "fotoAlcance1", label: "Imagen 1 del carrusel / alcance", type: "image", folder: "centros" },
+    { key: "fotoAlcance2", label: "Imagen 2 del carrusel / alcance", type: "image", folder: "centros" },
+    { key: "fotoAlcance3", label: "Imagen 3 del carrusel / alcance", type: "image", folder: "centros" },
+    { key: "fotoAlcance4", label: "Imagen 4 del carrusel / alcance", type: "image", folder: "centros" }
   ];
 
   editorArea.innerHTML = "";
@@ -286,7 +290,11 @@ async function renderCentros(section) {
       subtitulo: detail.subtitulo || "",
       address:   detail.address   || (ref && ref.address) || "",
       mapsLink:  defaultMapsLink(displayName, detail),
-      image:     detail.image || image || ""
+      image:     detail.image || image || "",
+      fotoAlcance1: (detail.fotos && detail.fotos[0]) || detail.fotoAlcance1 || detail.image || image || "",
+      fotoAlcance2: (detail.fotos && detail.fotos[1]) || detail.fotoAlcance2 || detail.image || image || "",
+      fotoAlcance3: (detail.fotos && detail.fotos[2]) || detail.fotoAlcance3 || detail.image || image || "",
+      fotoAlcance4: (detail.fotos && detail.fotos[3]) || detail.fotoAlcance4 || detail.image || image || ""
     };
     const form = buildForm(centerDetailFields, detailData);
 
@@ -425,7 +433,13 @@ async function renderCentros(section) {
               subtitulo: d.subtitulo,
               address:   d.address,
               mapsLink:  d.mapsLink,
-              image:     d.image
+              image:     d.image,
+              fotos: [
+                d.fotoAlcance1 || d.image || "",
+                d.fotoAlcance2 || d.image || "",
+                d.fotoAlcance3 || d.image || "",
+                d.fotoAlcance4 || d.image || ""
+              ]
             };
             // Actualizar campo district en el array centers (para main.js y la sección del mapa)
             const dbEntry = (updated.centers || []).find((c) => c.name === cName);
