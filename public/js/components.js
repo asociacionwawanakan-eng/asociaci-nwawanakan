@@ -27,6 +27,7 @@
         </div>
       </div>
       <a href="centros.html">Centros</a>
+      <a href="index.html#noticias">Noticias</a>
       <a href="contactos.html">Contactos</a>
     </nav>
   `;

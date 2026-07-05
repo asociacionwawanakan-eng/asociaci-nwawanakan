@@ -91,6 +91,8 @@ export const DEFAULT_CONTENT = {
     ]
   },
 
+  noticias: [],
+
   // ── colección valores ──────────────────────────────────────────────
   valores: [
     { id: "equidad",          titulo: "Equidad",          descripcion: "Garantizamos trato justo, inclusivo y sin discriminación, respetando la igualdad de oportunidades.",                         orden: 1, icono: '<path d="M32 12v40M20 20h24M20 20l-9 17h18L20 20Zm24 0-9 17h18l-9-17ZM24 52h16"/>' },

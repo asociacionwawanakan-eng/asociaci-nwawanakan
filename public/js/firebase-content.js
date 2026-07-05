@@ -60,6 +60,7 @@ function validateContent(content) {
     { path: "voluntariado.formasAyuda", type: "array" },
     { path: "voluntariado.pasos", type: "array" },
     { path: "pasantia.convocatorias", type: "array" },
+    { path: "noticias", type: "array" },
   ];
 
   let errors = 0;
@@ -130,10 +131,14 @@ export async function loadContent() {
       getDocs(collection(db, "directorio")).catch((err) => {
         console.warn("[CMS] No se pudo leer colección directorio:", err.code);
         return { empty: true, docs: [] };
+      }),
+      getDocs(collection(db, "noticias")).catch((err) => {
+        console.warn("[CMS] No se pudo leer colección noticias:", err.code);
+        return { empty: true, docs: [] };
       })
     ]);
 
-    const [valSnap, dirSnap] = await Promise.race([
+    const [valSnap, dirSnap, newsSnap] = await Promise.race([
       collectionPromise,
       new Promise((_, reject) => setTimeout(() => reject(new Error("Timeout loading collections")), 5000))
     ]);
@@ -143,6 +148,11 @@ export async function loadContent() {
     }
     if (dirSnap && !dirSnap.empty) {
       content.directorio = dirSnap.docs.map((d) => ({ id: d.id, ...d.data() })).sort(byOrden);
+    }
+    if (newsSnap && !newsSnap.empty) {
+      content.noticias = newsSnap.docs
+        .map((d) => ({ id: d.id, ...d.data() }))
+        .sort((a, b) => String(b.fecha || "").localeCompare(String(a.fecha || "")));
     }
   } catch (error) {
     const errorMsg = error.message || error.code || "unknown error";

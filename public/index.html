@@ -186,6 +186,18 @@
     </section>
     <!-- FIN NUESTROS ALIADOS -->
 
+    <!-- INICIO NOTICIAS -->
+    <section class="section noticias-section" id="noticias" aria-labelledby="noticias-title">
+      <div class="section-heading centered">
+        <span class="eyebrow">Noticias</span>
+        <h2 id="noticias-title">Últimas noticias</h2>
+        <p>Compartimos novedades, actividades y avances de nuestra comunidad.</p>
+      </div>
+      <div class="noticias-grid" id="noticias-grid" aria-live="polite"></div>
+      <p class="noticias-empty" id="noticias-empty" hidden>Próximamente compartiremos nuestras noticias y actividades.</p>
+    </section>
+    <!-- FIN NOTICIAS -->
+
     <!-- INICIO UBICACION DE CENTROS -->
     <section class="section centers-map-section" id="ubicacion-centros">
       <div class="section-heading centered">
@@ -275,6 +287,60 @@
       }
       document.addEventListener("wawa:content-ready", function(e) { renderValoresIndex(e.detail && e.detail.valores); });
       document.addEventListener("wawa:content-updated", function(e) { renderValoresIndex(e.detail && e.detail.valores); });
+    })();
+  </script>
+  <script>
+    (function () {
+      var esc = function(s) {
+        return String(s || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/"/g, "&quot;");
+      };
+      var isActive = function(n) {
+        var state = String(n.activa ?? n.estado ?? "").trim().toLowerCase();
+        return state === "si" || state === "sí" || state === "activa" || state === "activo" || state === "true" || n.activa === true;
+      };
+      var shortText = function(text, limit) {
+        var value = String(text || "").trim();
+        if (value.length <= limit) return value;
+        return value.slice(0, limit).trim().replace(/\s+\S*$/, "") + "...";
+      };
+      var sortByDate = function(a, b) {
+        return String(b.fecha || "").localeCompare(String(a.fecha || ""));
+      };
+
+      function renderNoticias(noticias) {
+        var grid = document.getElementById("noticias-grid");
+        var empty = document.getElementById("noticias-empty");
+        if (!grid || !empty) return;
+
+        var activeNews = Array.isArray(noticias) ? noticias.filter(isActive).sort(sortByDate) : [];
+        empty.hidden = activeNews.length > 0;
+
+        if (!activeNews.length) {
+          grid.innerHTML = "";
+          return;
+        }
+
+        grid.innerHTML = activeNews.map(function(n, index) {
+          var content = String(n.contenido || "").trim();
+          var hasLongContent = content.length > 180;
+          var image = n.imagen ? '<img src="' + esc(n.imagen) + '" alt="' + esc(n.titulo) + '" loading="lazy">' : "";
+          var body = hasLongContent
+            ? '<p>' + esc(shortText(content, 180)) + '</p><details class="noticia-more"><summary>Leer más</summary><p>' + esc(content) + '</p></details>'
+            : '<p>' + esc(content) + '</p>';
+
+          return '<article class="noticia-card" style="--delay:' + (index * 70) + 'ms">' +
+            '<figure class="noticia-image">' + image + '</figure>' +
+            '<div class="noticia-content">' +
+            '<time>' + esc(n.fecha || "") + '</time>' +
+            '<h3>' + esc(n.titulo || "Noticia") + '</h3>' +
+            body +
+            '</div>' +
+            '</article>';
+        }).join("");
+      }
+
+      document.addEventListener("wawa:content-ready", function(e) { renderNoticias(e.detail && e.detail.noticias); });
+      document.addEventListener("wawa:content-updated", function(e) { renderNoticias(e.detail && e.detail.noticias); });
     })();
   </script>
 </body>
