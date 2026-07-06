@@ -99,10 +99,24 @@ function getCenterProfile(district, name, image) {
     return `assets/centros/${value}`;
   };
   const imagePath = normalizeCenterImage(imageFile);
+  const mainImagePath = normalizeCenterImage(detail.imagenPrincipal || detail.heroImage || imageFile) || imagePath;
   const galleryImages = Array.from({ length: 4 }, (_, index) => {
     const photo = Array.isArray(detail.fotos) ? detail.fotos[index] : "";
     return normalizeCenterImage(photo) || imagePath;
   });
+  const normalizeActivity = (activity) => {
+    if (Array.isArray(activity)) return [activity[0] || "", activity[1] || ""];
+    activity = activity || {};
+    return [
+      activity.icon || activity.icono || "",
+      activity.label || activity.texto || activity.actividad || ""
+    ];
+  };
+  const centerSpecificActivities = Array.isArray(detail.actividades)
+    ? detail.actividades.map(normalizeActivity).filter(([icon, activity]) => icon || activity)
+    : [];
+  const director = detail.directora || {};
+  const directorPhoto = normalizeCenterImage(director.foto || detail.directoraFoto) || "assets/equipo/presidenta1.png";
   const address = detail.address || "Direccion institucional por actualizar, El Alto";
   return {
     name: displayName,
@@ -110,20 +124,23 @@ function getCenterProfile(district, name, image) {
     subtitulo: detail.subtitulo || "Centro infantil con acompañamiento, cuidado y formación integral",
     address,
     mapsLink: detail.mapsLink || null,
-    portada: imagePath,
-    imagenPrincipal: imagePath,
+    portada: mainImagePath,
+    imagenPrincipal: mainImagePath,
     logoCentro: imagePath,
     logoWawanakan: "assets/institucional/logotipo.png",
-    resena: `${displayName} forma parte de la red de centros infantiles acompañados por Wawanakan, fortaleciendo espacios de cuidado, aprendizaje y buen trato para la niñez.`,
+    resenaTitulo: detail.resenaTitulo || detail.historiaTitulo || "Reseña histórica",
+    resena: detail.resenaTexto || detail.resena || `${displayName} forma parte de la red de centros infantiles acompañados por Wawanakan, fortaleciendo espacios de cuidado, aprendizaje y buen trato para la niñez.`,
     informacionGeneral: `El centro brinda acompañamiento integral a niñas y niños, promoviendo experiencias educativas, juego, cuidado diario y relación cercana con las familias y la comunidad.`,
     directora: {
-      nombre: "Lic. Tania Loyola Acarapi Mamani",
-      cargo: "Directora",
-      foto: "assets/equipo/presidenta1.png",
+      nombre: director.nombre || detail.directoraNombre || "Lic. Tania Loyola Acarapi Mamani",
+      cargo: director.cargo || detail.directoraCargo || "Directora",
+      foto: directorPhoto,
       descripcion: "Lidera la gestión del centro con compromiso, vocación de servicio y enfoque en el bienestar integral de la niñez y sus familias."
     },
     galeria: galleryImages,
-    actividades: centerActivities
+    actividades: centerSpecificActivities.length ? centerSpecificActivities : centerActivities,
+    facebookLink: detail.facebookLink || centerFacebookLink,
+    whatsappLink: detail.whatsappLink || centerWhatsappLink
   };
 }
 
@@ -350,8 +367,8 @@ function openCenter(districtIndex, centerIndex) {
 
           <div class="social-card">
             <h3 class="social-title">Síguenos para más información</h3>
-            <a class="social-btn facebook-btn" href="${centerFacebookLink}" target="_blank" rel="noopener noreferrer">Facebook</a>
-            <a class="social-btn whatsapp-btn" href="${centerWhatsappLink}" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+            <a class="social-btn facebook-btn" href="${center.facebookLink}" target="_blank" rel="noopener noreferrer">Facebook</a>
+            <a class="social-btn whatsapp-btn" href="${center.whatsappLink}" target="_blank" rel="noopener noreferrer">WhatsApp</a>
           </div>
         </div>
 
@@ -399,7 +416,7 @@ function openCenter(districtIndex, centerIndex) {
   centerDetail.querySelector(".center-history-card button")?.remove();
 
   const historyTitle = centerDetail.querySelector(".center-history-card h3");
-  if (historyTitle) historyTitle.textContent = "Reseña histórica";
+  if (historyTitle) historyTitle.textContent = center.resenaTitulo || "Reseña histórica";
 
   centerDetail.querySelectorAll(".center-hero-actions a").forEach((link, index) => {
     link.href = centerFormLink;
