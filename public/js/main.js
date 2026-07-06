@@ -113,9 +113,10 @@ function getCenterProfile(district, name, image) {
       activity.label || activity.texto || activity.actividad || ""
     ];
   };
-  const centerSpecificActivities = Array.isArray(detail.actividades)
+  const hasSavedActivities = Object.prototype.hasOwnProperty.call(detail, "actividades");
+  const centerSpecificActivities = hasSavedActivities && Array.isArray(detail.actividades)
     ? detail.actividades.map(normalizeActivity).filter(([icon, activity]) => icon || activity)
-    : [];
+    : centerActivities.map(normalizeActivity).filter(([icon, activity]) => icon || activity);
   const director = detail.directora || {};
   const directorPhoto = normalizeCenterImage(director.foto || detail.directoraFoto) || "assets/equipo/presidenta1.png";
   const address = detail.address || "Direccion institucional por actualizar, El Alto";
@@ -139,7 +140,7 @@ function getCenterProfile(district, name, image) {
       descripcion: "Lidera la gestión del centro con compromiso, vocación de servicio y enfoque en el bienestar integral de la niñez y sus familias."
     },
     galeria: galleryImages,
-    actividades: centerSpecificActivities.length ? centerSpecificActivities : centerActivities,
+    actividades: centerSpecificActivities,
     facebookLink: detail.facebookLink || centerFacebookLink,
     whatsappLink: detail.whatsappLink || centerWhatsappLink
   };
@@ -416,6 +417,9 @@ function openCenter(districtIndex, centerIndex) {
   centerDetail.querySelector(".center-gallery button")?.remove();
   centerDetail.querySelector(".center-identity")?.remove();
   centerDetail.querySelector(".center-history-card button")?.remove();
+  if (!center.actividades.length) {
+    centerDetail.querySelector(".center-activities")?.remove();
+  }
 
   const historyTitle = centerDetail.querySelector(".center-history-card h3");
   if (historyTitle) historyTitle.textContent = center.resenaTitulo || "Reseña histórica";

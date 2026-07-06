@@ -261,22 +261,17 @@ async function renderCentros(section) {
     { key: "imagenPrincipal", label: "Imagen principal superior del centro", type: "image", folder: "centros" },
     { key: "resenaTitulo", label: "Titulo de la reseña historica", type: "text" },
     { key: "resenaTexto", label: "Texto/descripcion de la reseña historica", type: "textarea" },
-    { key: "actividadIcono1", label: "Actividad 1 - Icono", type: "text" },
-    { key: "actividadTexto1", label: "Actividad 1 - Texto", type: "text" },
-    { key: "actividadIcono2", label: "Actividad 2 - Icono", type: "text" },
-    { key: "actividadTexto2", label: "Actividad 2 - Texto", type: "text" },
-    { key: "actividadIcono3", label: "Actividad 3 - Icono", type: "text" },
-    { key: "actividadTexto3", label: "Actividad 3 - Texto", type: "text" },
-    { key: "actividadIcono4", label: "Actividad 4 - Icono", type: "text" },
-    { key: "actividadTexto4", label: "Actividad 4 - Texto", type: "text" },
-    { key: "actividadIcono5", label: "Actividad 5 - Icono", type: "text" },
-    { key: "actividadTexto5", label: "Actividad 5 - Texto", type: "text" },
-    { key: "actividadIcono6", label: "Actividad 6 - Icono", type: "text" },
-    { key: "actividadTexto6", label: "Actividad 6 - Texto", type: "text" },
-    { key: "actividadIcono7", label: "Actividad 7 - Icono", type: "text" },
-    { key: "actividadTexto7", label: "Actividad 7 - Texto", type: "text" },
-    { key: "actividadIcono8", label: "Actividad 8 - Icono", type: "text" },
-    { key: "actividadTexto8", label: "Actividad 8 - Texto", type: "text" },
+    {
+      key: "actividades",
+      label: "Actividades que realizan",
+      type: "objectList",
+      itemLabel: "Actividad",
+      note: "Agrega, elimina o reordena las actividades de este centro.",
+      subfields: [
+        { key: "icon", label: "Icono", type: "text" },
+        { key: "label", label: "Texto o nombre de la actividad", type: "text" }
+      ]
+    },
     { key: "directoraNombre", label: "Nombre de la directora", type: "text" },
     { key: "directoraCargo", label: "Cargo de la directora", type: "text" },
     { key: "directoraFoto", label: "Fotografia de la directora", type: "image", folder: "centros" },
@@ -318,6 +313,7 @@ async function renderCentros(section) {
         label: activity.label || activity.texto || activity.actividad || ""
       };
     };
+    const hasSavedActivities = Object.prototype.hasOwnProperty.call(detail, "actividades");
     const detailActivities = Array.isArray(detail.actividades) ? detail.actividades.map(normalizeActivity) : [];
     const defaultActivities = Array.isArray(doc.activities) ? doc.activities.map(normalizeActivity) : [];
     const director = detail.directora || {};
@@ -334,16 +330,12 @@ async function renderCentros(section) {
       directoraFoto: director.foto || detail.directoraFoto || "assets/equipo/presidenta1.png",
       facebookLink: detail.facebookLink || "",
       whatsappLink: detail.whatsappLink || "",
+      actividades: hasSavedActivities ? detailActivities : defaultActivities,
       fotoAlcance1: (detail.fotos && detail.fotos[0]) || detail.fotoAlcance1 || detail.image || image || "",
       fotoAlcance2: (detail.fotos && detail.fotos[1]) || detail.fotoAlcance2 || detail.image || image || "",
       fotoAlcance3: (detail.fotos && detail.fotos[2]) || detail.fotoAlcance3 || detail.image || image || "",
       fotoAlcance4: (detail.fotos && detail.fotos[3]) || detail.fotoAlcance4 || detail.image || image || ""
     };
-    Array.from({ length: 8 }, (_, index) => {
-      const activity = detailActivities[index] || defaultActivities[index] || {};
-      detailData[`actividadIcono${index + 1}`] = activity.icon || "";
-      detailData[`actividadTexto${index + 1}`] = activity.label || "";
-    });
     const form = buildForm(centerDetailFields, detailData);
 
     const nameInput = el("input", {
@@ -477,10 +469,12 @@ async function renderCentros(section) {
           Array.from(di.querySelectorAll(".cms-center-list > .cms-center-item")).forEach((ci) => {
             const d = ci.__collect();
             const cName = d.name;
-            const actividades = Array.from({ length: 8 }, (_, index) => ({
-              icon: d[`actividadIcono${index + 1}`] || "",
-              label: d[`actividadTexto${index + 1}`] || ""
-            })).filter((activity) => activity.icon || activity.label);
+            const actividades = (Array.isArray(d.actividades) ? d.actividades : [])
+              .map((activity) => ({
+                icon: activity.icon || activity.icono || "",
+                label: activity.label || activity.texto || activity.actividad || ""
+              }))
+              .filter((activity) => activity.icon || activity.label);
             newDetails[cName] = {
               subtitulo: d.subtitulo,
               address:   d.address,
