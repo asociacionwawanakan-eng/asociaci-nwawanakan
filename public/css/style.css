@@ -12961,9 +12961,12 @@ body.home-page #valores .flip-card.value-card .flip-card-inner,
 }
 
 body.home-page .values-feature .flip-card.value-card:hover .flip-card-inner,
+body.home-page #valores .flip-card.value-card:hover .flip-card-inner {
+  transform: none !important;
+}
+
 body.home-page .values-feature .flip-card.value-card.flipped .flip-card-inner,
 body.home-page .values-feature .flip-card.value-card.is-flipped .flip-card-inner,
-body.home-page #valores .flip-card.value-card:hover .flip-card-inner,
 body.home-page #valores .flip-card.value-card.flipped .flip-card-inner,
 body.home-page #valores .flip-card.value-card.is-flipped .flip-card-inner {
   transform: rotateY(180deg) !important;
