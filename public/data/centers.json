@@ -203,14 +203,10 @@
     }
   },
   "activities": [
-    ["📘", "Desarrollo educativo"],
-    ["💛", "Acompañamiento emocional"],
-    ["🍲", "Nutrición"],
-    ["🎲", "Juego"],
-    ["✨", "Valores"],
-    ["👨‍👩‍👧", "Participación familiar"],
-    ["🤸", "Psicomotricidad"],
-    ["🤝", "Apoyo a familias"]
+    ["🌱", "Identidad cultural en familia"],
+    ["🍲", "Salud y nutrición"],
+    ["✨", "Afectividad y espiritualidad en la familia"],
+    ["🧠", "Desarrollo psicomotriz y cognitivo"]
   ],
   "impactDescriptions": [
     "Actividades que fortalecen el aprendizaje y la participación de las niñas y niños.",

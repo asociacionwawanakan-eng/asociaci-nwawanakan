@@ -49,6 +49,12 @@ let centerFormLink = "";
 let centerFacebookLink = "";
 let centerWhatsappLink = "";
 let centerInstitutionLogo = "assets/institucional/logotipo.png";
+const officialCenterActivities = [
+  ["🌱", "Identidad cultural en familia"],
+  ["🍲", "Salud y nutrición"],
+  ["✨", "Afectividad y espiritualidad en la familia"],
+  ["🧠", "Desarrollo psicomotriz y cognitivo"]
+];
 
 async function loadData() {
   try {
@@ -113,10 +119,12 @@ function getCenterProfile(district, name, image) {
       activity.label || activity.texto || activity.actividad || ""
     ];
   };
-  const hasSavedActivities = Object.prototype.hasOwnProperty.call(detail, "actividades");
-  const centerSpecificActivities = hasSavedActivities && Array.isArray(detail.actividades)
+  const detailActivities = Array.isArray(detail.actividades)
     ? detail.actividades.map(normalizeActivity).filter(([icon, activity]) => icon || activity)
-    : centerActivities.map(normalizeActivity).filter(([icon, activity]) => icon || activity);
+    : [];
+  const centerSpecificActivities = detailActivities.length === officialCenterActivities.length
+    ? detailActivities
+    : officialCenterActivities;
   const director = detail.directora || {};
   const directorPhoto = normalizeCenterImage(director.foto || detail.directoraFoto) || "assets/equipo/presidenta1.png";
   const address = detail.address || "Direccion institucional por actualizar, El Alto";
