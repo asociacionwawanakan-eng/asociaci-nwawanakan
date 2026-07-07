@@ -381,10 +381,10 @@ async function renderCentros(section) {
       directoraFoto: director.foto || detail.directoraFoto || "assets/equipo/presidenta1.png",
       facebookLink: detail.facebookLink || "",
       whatsappLink: detail.whatsappLink || "",
-      fotoAlcance1: (detail.fotos && detail.fotos[0]) || detail.fotoAlcance1 || detail.image || image || "",
-      fotoAlcance2: (detail.fotos && detail.fotos[1]) || detail.fotoAlcance2 || detail.image || image || "",
-      fotoAlcance3: (detail.fotos && detail.fotos[2]) || detail.fotoAlcance3 || detail.image || image || "",
-      fotoAlcance4: (detail.fotos && detail.fotos[3]) || detail.fotoAlcance4 || detail.image || image || ""
+      fotoAlcance1: (detail.fotos && detail.fotos[0]) || detail.fotoAlcance1 || "",
+      fotoAlcance2: (detail.fotos && detail.fotos[1]) || detail.fotoAlcance2 || "",
+      fotoAlcance3: (detail.fotos && detail.fotos[2]) || detail.fotoAlcance3 || "",
+      fotoAlcance4: (detail.fotos && detail.fotos[3]) || detail.fotoAlcance4 || ""
     };
     officialCenterActivities.forEach((_, index) => {
       const activity = formActivities[index] || officialCenterActivities[index];
@@ -547,10 +547,10 @@ async function renderCentros(section) {
               facebookLink: d.facebookLink,
               whatsappLink: d.whatsappLink,
               fotos: [
-                d.fotoAlcance1 || d.image || "",
-                d.fotoAlcance2 || d.image || "",
-                d.fotoAlcance3 || d.image || "",
-                d.fotoAlcance4 || d.image || ""
+                d.fotoAlcance1 || "",
+                d.fotoAlcance2 || "",
+                d.fotoAlcance3 || "",
+                d.fotoAlcance4 || ""
               ]
             };
             // Actualizar campo district en el array centers (para main.js y la sección del mapa)
