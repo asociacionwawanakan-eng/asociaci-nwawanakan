@@ -7071,8 +7071,15 @@ body.home-page .centers-map-section {
 
 .center-history-card {
   display: flex;
+  align-items: center;
   gap: 14px;
   border-color: rgba(255, 201, 40, 0.42);
+}
+
+.center-history-card > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .center-history-card > span {
