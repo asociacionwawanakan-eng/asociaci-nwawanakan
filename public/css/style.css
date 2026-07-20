@@ -8944,16 +8944,19 @@ body.home-page .allies-inner:hover {
 
 .voluntariado-hero-copy h1 {
   width: fit-content;
-  max-width: 14ch;
+  max-width: 16ch;
   margin: 0 auto;
-  font-size: clamp(2.35rem, 5vw, 4.5rem) !important;
-  line-height: 1.02;
-  letter-spacing: 0.01em;
+  color: #ffc928 !important;
+  font-size: clamp(3rem, 7vw, 6rem) !important;
+  line-height: 1.08;
+  letter-spacing: 0;
+  text-align: center;
+  text-shadow: 0 6px 20px rgba(66, 19, 4, 0.48), 0 2px 8px rgba(255, 201, 40, 0.28);
 }
 
-.voluntariado-hero-copy .voluntariado-lead {
-  margin-top: 8px;
-  max-width: 42rem;
+.voluntariado-hero-copy .voluntariado-lead,
+.voluntariado-hero-copy .voluntariado-sublead {
+  display: none !important;
 }
 
 .voluntariado-sublead {
@@ -9025,6 +9028,7 @@ body.home-page .allies-inner:hover {
   display: grid;
   gap: 10px;
   justify-items: center;
+  margin-top: 14px;
 }
 
 .voluntariado-cta-wrap {
@@ -9344,6 +9348,11 @@ body.home-page .allies-inner:hover {
 }
 
 @media (max-width: 560px) {
+  .voluntariado-hero-copy h1 {
+    font-size: clamp(2.55rem, 13vw, 3.75rem) !important;
+    line-height: 1.12;
+  }
+
   .voluntariado-glass {
     padding: 16px 12px !important;
   }
