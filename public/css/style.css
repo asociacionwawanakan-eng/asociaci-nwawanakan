@@ -12434,44 +12434,45 @@ body.home-page #alcances .stat-card h3 {
   }
 }
 
-/* Voluntariado: tarjetas de ayuda tipo capsula */
+/* Voluntariado: cuadricula estable para "Como puedes ayudar?" */
 .voluntariado-help-roadmap,
 .help-grid,
 .como-ayudar-grid {
   display: grid !important;
-  grid-template-columns: repeat(3, minmax(180px, 1fr)) !important;
-  gap: 18px !important;
-  max-width: 980px !important;
-  margin: 14px auto 0 !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 24px !important;
+  width: 100% !important;
+  max-width: 1200px !important;
+  margin: 24px auto 0 !important;
 }
 
 .voluntariado-help-stop,
 .help-card,
 .como-ayudar-card {
   position: relative !important;
-  min-height: 120px !important;
+  min-height: 170px !important;
   padding: 0 !important;
   border: 1px solid rgba(255, 201, 40, 0.35) !important;
-  border-radius: 999px !important;
-  background: rgba(255, 244, 230, 0.96) !important;
+  border-radius: 34px !important;
+  background: rgba(255, 244, 230, 0.94) !important;
   box-shadow: 0 12px 28px rgba(0, 0, 0, 0.16) !important;
-  overflow: visible !important;
+  overflow: hidden !important;
 }
 
 .voluntariado-help-content {
-  min-height: 120px !important;
-  border-radius: 999px !important;
+  min-height: 170px !important;
+  border-radius: 34px !important;
 }
 
 .voluntariado-help-card-inner {
-  min-height: 120px !important;
-  border-radius: 999px !important;
+  min-height: 170px !important;
+  border-radius: 34px !important;
 }
 
 .voluntariado-help-card-face {
-  min-height: 120px !important;
-  padding: 20px 24px !important;
-  border-radius: 999px !important;
+  min-height: 170px !important;
+  padding: 28px 24px 28px 90px !important;
+  border-radius: 34px !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
@@ -12482,31 +12483,77 @@ body.home-page #alcances .stat-card h3 {
   background: rgba(255, 244, 230, 0.96) !important;
 }
 
+.voluntariado-help-card-front h3 {
+  margin: 0 !important;
+  max-width: 100% !important;
+  color: #421304 !important;
+  font-size: clamp(1.15rem, 2vw, 1.8rem) !important;
+  font-weight: 800 !important;
+  line-height: 1.18 !important;
+  word-break: normal !important;
+}
+
+.voluntariado-help-card-back p {
+  margin: 0 !important;
+  color: #fff4e6 !important;
+  font-size: clamp(0.95rem, 1.35vw, 1.08rem) !important;
+  line-height: 1.42 !important;
+}
+
 .voluntariado-help-marker,
 .help-card span,
 .como-ayudar-card span,
 .help-card .number,
 .como-ayudar-card .number {
   position: absolute !important;
-  top: 10px !important;
-  left: 12px !important;
+  top: 22px !important;
+  left: 18px !important;
   z-index: 3 !important;
-  width: 24px !important;
-  height: 24px !important;
+  width: 52px !important;
+  height: 52px !important;
   border-radius: 50% !important;
-  background: #ffc928 !important;
+  background: rgba(255, 201, 40, 0.72) !important;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
   color: #421304 !important;
-  font-size: 0.75rem !important;
-  font-weight: 800 !important;
+  font-size: 1.35rem !important;
+  font-weight: 900 !important;
   display: grid !important;
   place-items: center !important;
+  box-shadow: 0 8px 18px rgba(255, 201, 40, 0.2) !important;
 }
 
 @media (max-width: 900px) {
   .voluntariado-help-roadmap,
   .help-grid,
   .como-ayudar-grid {
-    grid-template-columns: repeat(2, minmax(180px, 1fr)) !important;
+    gap: 18px !important;
+  }
+
+  .voluntariado-help-stop,
+  .help-card,
+  .como-ayudar-card,
+  .voluntariado-help-content,
+  .voluntariado-help-card-inner,
+  .voluntariado-help-card-face {
+    min-height: 150px !important;
+    border-radius: 28px !important;
+  }
+
+  .voluntariado-help-card-face {
+    padding: 24px 18px 24px 76px !important;
+  }
+
+  .voluntariado-help-marker,
+  .help-card span,
+  .como-ayudar-card span,
+  .help-card .number,
+  .como-ayudar-card .number {
+    top: 18px !important;
+    left: 16px !important;
+    width: 46px !important;
+    height: 46px !important;
+    font-size: 1.15rem !important;
   }
 }
 
@@ -12514,7 +12561,81 @@ body.home-page #alcances .stat-card h3 {
   .voluntariado-help-roadmap,
   .help-grid,
   .como-ayudar-grid {
-    grid-template-columns: 1fr !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 12px !important;
+    margin-top: 18px !important;
+  }
+
+  .voluntariado-help-stop,
+  .help-card,
+  .como-ayudar-card,
+  .voluntariado-help-content,
+  .voluntariado-help-card-inner,
+  .voluntariado-help-card-face {
+    min-height: 135px !important;
+    border-radius: 22px !important;
+  }
+
+  .voluntariado-help-card-face {
+    padding: 16px 10px 16px 58px !important;
+  }
+
+  .voluntariado-help-marker,
+  .help-card span,
+  .como-ayudar-card span,
+  .help-card .number,
+  .como-ayudar-card .number {
+    top: 14px !important;
+    left: 12px !important;
+    width: 36px !important;
+    height: 36px !important;
+    background: rgba(255, 201, 40, 0.68) !important;
+    font-size: 1rem !important;
+  }
+
+  .voluntariado-help-card-front h3 {
+    font-size: 0.95rem !important;
+    line-height: 1.15 !important;
+  }
+
+  .voluntariado-help-card-back p {
+    font-size: 0.78rem !important;
+    line-height: 1.25 !important;
+  }
+}
+
+@media (max-width: 390px) {
+  .voluntariado-help-stop,
+  .help-card,
+  .como-ayudar-card,
+  .voluntariado-help-content,
+  .voluntariado-help-card-inner,
+  .voluntariado-help-card-face {
+    min-height: 125px !important;
+  }
+
+  .voluntariado-help-card-face {
+    padding: 14px 8px 14px 52px !important;
+  }
+
+  .voluntariado-help-marker,
+  .help-card span,
+  .como-ayudar-card span,
+  .help-card .number,
+  .como-ayudar-card .number {
+    top: 12px !important;
+    left: 10px !important;
+    width: 32px !important;
+    height: 32px !important;
+    font-size: 0.9rem !important;
+  }
+
+  .voluntariado-help-card-front h3 {
+    font-size: 0.85rem !important;
+  }
+
+  .voluntariado-help-card-back p {
+    font-size: 0.72rem !important;
   }
 }
 
