@@ -112,11 +112,15 @@
       if (!grid || !Array.isArray(beneficios) || !beneficios.length) return;
       grid.innerHTML = beneficios.map(function (b, i) {
         var cls = BENEFIT_CLASSES[i % BENEFIT_CLASSES.length];
-        return '<article class="voluntariado-benefit-card ' + cls + '">' +
-          '<span class="voluntariado-benefit-icon" aria-hidden="true">' + esc(b.icon || "✦") + '</span>' +
-          '<h3>' + esc(b.titulo) + '</h3>' +
-          '<p>' + esc(b.texto) + '</p>' +
-          '</article>';
+        return '<article class="voluntariado-benefit-card benefit-flip-card ' + cls + '" tabindex="0" role="button" aria-label="Ver detalle de ' + esc(b.titulo) + '">' +
+          '<div class="benefit-flip-card__inner">' +
+          '<div class="benefit-flip-card__face benefit-flip-card__face--front">' +
+          '<span class="voluntariado-benefit-icon benefit-flip-card__icon" aria-hidden="true">' + esc(b.icon || "✦") + '</span>' +
+          '<h3 class="benefit-flip-card__heading">' + esc(b.titulo) + '</h3>' +
+          '</div>' +
+          '<div class="benefit-flip-card__face benefit-flip-card__face--back">' +
+          '<p class="benefit-flip-card__description">' + esc(b.texto) + '</p>' +
+          '</div></div></article>';
       }).join("");
     }
 
@@ -165,6 +169,19 @@
     document.addEventListener("wawa:content-updated", function (e) { renderVoluntariado(e.detail); });
 
     // Event delegation para flips (main.js los buscaba en el DOM al cargar, antes del render dinámico)
+    var beneficiosGrid = document.getElementById("beneficios-grid");
+    if (beneficiosGrid) {
+      beneficiosGrid.addEventListener("click", function (e) {
+        var card = e.target.closest(".benefit-flip-card");
+        if (card) card.classList.toggle("is-flipped");
+      });
+      beneficiosGrid.addEventListener("keydown", function (e) {
+        if (e.key !== "Enter" && e.key !== " ") return;
+        var card = e.target.closest(".benefit-flip-card");
+        if (card) { e.preventDefault(); card.classList.toggle("is-flipped"); }
+      });
+    }
+
     var formasGrid = document.getElementById("formas-ayuda-grid");
     if (formasGrid) {
       formasGrid.addEventListener("click", function (e) {
