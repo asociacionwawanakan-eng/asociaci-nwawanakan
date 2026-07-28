@@ -112,7 +112,7 @@
       if (!grid || !Array.isArray(beneficios) || !beneficios.length) return;
       grid.innerHTML = beneficios.map(function (b, i) {
         var cls = BENEFIT_CLASSES[i % BENEFIT_CLASSES.length];
-        return '<article class="voluntariado-benefit-card benefit-flip-card ' + cls + '" tabindex="0" role="button" aria-label="Ver detalle de ' + esc(b.titulo) + '">' +
+        return '<article class="voluntariado-benefit-card benefit-flip-card ' + cls + '" tabindex="0" role="button" aria-pressed="false" aria-label="Ver detalle de ' + esc(b.titulo) + '">' +
           '<div class="benefit-flip-card__inner">' +
           '<div class="benefit-flip-card__face benefit-flip-card__face--front">' +
           '<span class="voluntariado-benefit-icon benefit-flip-card__icon" aria-hidden="true">' + esc(b.icon || "✦") + '</span>' +
@@ -171,14 +171,25 @@
     // Event delegation para flips (main.js los buscaba en el DOM al cargar, antes del render dinámico)
     var beneficiosGrid = document.getElementById("beneficios-grid");
     if (beneficiosGrid) {
+      var toggleBenefitCard = function (card) {
+        var wasFlipped = card.classList.contains("is-flipped");
+        beneficiosGrid.querySelectorAll(".benefit-flip-card.is-flipped").forEach(function (openCard) {
+          openCard.classList.remove("is-flipped");
+          openCard.setAttribute("aria-pressed", "false");
+        });
+        if (!wasFlipped) {
+          card.classList.add("is-flipped");
+          card.setAttribute("aria-pressed", "true");
+        }
+      };
       beneficiosGrid.addEventListener("click", function (e) {
         var card = e.target.closest(".benefit-flip-card");
-        if (card) card.classList.toggle("is-flipped");
+        if (card) toggleBenefitCard(card);
       });
       beneficiosGrid.addEventListener("keydown", function (e) {
         if (e.key !== "Enter" && e.key !== " ") return;
         var card = e.target.closest(".benefit-flip-card");
-        if (card) { e.preventDefault(); card.classList.toggle("is-flipped"); }
+        if (card) { e.preventDefault(); toggleBenefitCard(card); }
       });
     }
 
