@@ -17259,3 +17259,78 @@ body.voluntariado-body .benefit-flip-card:focus-within .benefit-flip-card__inner
 body.voluntariado-body .benefit-flip-card.is-flipped .benefit-flip-card__inner {
   transform: rotateY(180deg) !important;
 }
+
+/* Voluntariado: regla final para centrar imagen en "Como postular?" */
+body.voluntariado-body .voluntariado-process-intro {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  grid-template-columns: none !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  min-height: 0 !important;
+  height: auto !important;
+  margin: 0 auto 8px !important;
+  padding: 12px !important;
+  border: 1px solid rgba(226, 168, 36, 0.5) !important;
+  border-radius: 20px !important;
+  background: rgba(126, 82, 64, 0.42) !important;
+  box-sizing: border-box !important;
+}
+
+body.voluntariado-body .voluntariado-process-intro p {
+  display: none !important;
+}
+
+body.voluntariado-body .voluntariado-process-image {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: min(100%, 520px) !important;
+  max-width: 520px !important;
+  min-height: 0 !important;
+  height: auto !important;
+  margin: 0 auto !important;
+  padding: 0 !important;
+  border-radius: 18px !important;
+  overflow: hidden !important;
+}
+
+body.voluntariado-body .voluntariado-process-image img {
+  display: block !important;
+  width: 100% !important;
+  height: clamp(170px, 28vw, 280px) !important;
+  margin: 0 auto !important;
+  object-fit: cover !important;
+  object-position: center !important;
+  border-radius: inherit !important;
+}
+
+@media (max-width: 767px) {
+  body.voluntariado-body .voluntariado-process-intro {
+    width: 100% !important;
+    margin-bottom: 8px !important;
+    padding: 7px !important;
+  }
+
+  body.voluntariado-body .voluntariado-process-image {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 auto !important;
+  }
+
+  body.voluntariado-body .voluntariado-process-image img {
+    width: 100% !important;
+    height: 180px !important;
+  }
+}
+
+@media (max-width: 400px) {
+  body.voluntariado-body .voluntariado-process-intro {
+    padding: 5px !important;
+  }
+
+  body.voluntariado-body .voluntariado-process-image img {
+    height: 155px !important;
+  }
+}
