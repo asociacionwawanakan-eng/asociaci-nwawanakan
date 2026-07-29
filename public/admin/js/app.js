@@ -7,19 +7,19 @@
  *   el contenido por defecto en Firestore (Fase I del plan).
  */
 import { isFirebaseConfigured, FIREBASE_CONFIG, CLOUDINARY } from "../../js/firebase-config.js";
-import { DEFAULT_CONTENT } from "../../js/content-defaults.js?v=10";
+import { DEFAULT_CONTENT } from "../../js/content-defaults.js?v=11";
 import { login, logout, onAuthChanged, authErrorMessage } from "./auth.js";
 import {
   getDocData, setDocData, replaceDocData,
   getCollectionData, setCollectionDoc, deleteCollectionDoc
 } from "./store.js";
-import { SECTIONS, CENTROS_SECTION } from "./schema.js?v=10";
+import { SECTIONS, CENTROS_SECTION } from "./schema.js?v=11";
 import { buildForm } from "./form-builder.js";
 
 /* ── MARCADOR DE DIAGNÓSTICO (temporal) ──────────────────────────────── */
-console.log("%c[CMS] app.js BUILD-10 cargado | apiKey:", "background:#c8922a;color:#000;padding:2px 6px;border-radius:4px", FIREBASE_CONFIG.apiKey, "| configurado:", isFirebaseConfigured());
-document.title = "CMS BUILD-10 | " + document.title;
-window.__CMS_BUILD = 10;
+console.log("%c[CMS] app.js BUILD-11 cargado | apiKey:", "background:#c8922a;color:#000;padding:2px 6px;border-radius:4px", FIREBASE_CONFIG.apiKey, "| configurado:", isFirebaseConfigured());
+document.title = "CMS BUILD-11 | " + document.title;
+window.__CMS_BUILD = 11;
 
 /* ── Referencias del DOM ─────────────────────────────────────────────── */
 const $ = (id) => document.getElementById(id);
@@ -688,6 +688,7 @@ async function seedContent() {
         ...DEFAULT_CONTENT.home,
         aboutImage: urlHeroAbout,
         objetivoImage: urlObjetivo,
+        alliesImages: [urlAllies],
         alliesImage: urlAllies,
       }),
       setDocData(["sitio", "heroSlides"], {

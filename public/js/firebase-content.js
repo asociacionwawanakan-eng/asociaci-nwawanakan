@@ -17,7 +17,7 @@
  * para los centros y la configuración.
  */
 import { initFirebase } from "./firebase-app.js";
-import { DEFAULT_CONTENT } from "./content-defaults.js?v=10";
+import { DEFAULT_CONTENT } from "./content-defaults.js?v=11";
 
 /* ── Utilidades ──────────────────────────────────────────────────────── */
 
@@ -243,6 +243,22 @@ export function hydrate(content) {
   const allElements = document.querySelectorAll("[data-cms-text]");
 
   console.log(`[CMS] Iniciando hidratación. Elementos encontrados: ${allElements.length}`);
+
+  const alliesWrap = document.querySelector(".allies-image-wrap");
+  if (alliesWrap) {
+    const alliesImagesValue = get(content, "home.alliesImages");
+    const fallbackImage = get(content, "home.alliesImage");
+    const alliesImages = (Array.isArray(alliesImagesValue) ? alliesImagesValue : [])
+      .filter((src) => typeof src === "string" && src.trim() !== "");
+    if (!alliesImages.length && fallbackImage) alliesImages.push(fallbackImage);
+    if (alliesImages.length) {
+      alliesWrap.innerHTML = alliesImages.map((src, index) => {
+        const safeSrc = String(src).replace(/&/g, "&amp;").replace(/"/g, "&quot;");
+        return `<img src="${safeSrc}" alt="Aliado institucional de la Asociación Wawanakan Kusisinapa ${index + 1}">`;
+      }).join("");
+      srcUpdates += alliesImages.length;
+    }
+  }
 
   // PASO 1: Detectar paths que apunten a índices de array (ej. "pasantia.requisitos.0")
   const arrayPaths = new Map(); // rootPath → { indices: Set, minIndex, maxIndex }

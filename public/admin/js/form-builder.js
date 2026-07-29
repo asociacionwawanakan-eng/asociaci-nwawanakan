@@ -98,6 +98,34 @@ function buildImage(field, value) {
   return wrap;
 }
 
+function buildImageList(field, value) {
+  const rows = el("div", { class: "cms-list-rows" });
+  const initialImages = Array.isArray(value) ? value : (value ? [value] : []);
+
+  const addImage = (imageUrl = "") => {
+    const item = buildImage(field, imageUrl);
+    rows.appendChild(item);
+  };
+
+  initialImages.forEach(addImage);
+  if (!initialImages.length) addImage("");
+
+  const addBtn = el("button", {
+    class: "cms-btn cms-btn-soft",
+    type: "button",
+    text: field.addLabel || "+ Agregar otro aliado",
+    onclick: () => addImage("")
+  });
+
+  const wrap = el("div", { class: "cms-field" }, [
+    el("label", { class: "cms-label", text: field.label }),
+    rows,
+    addBtn
+  ]);
+  wrap.__collect = () => Array.from(rows.children).map((row) => row.__collect()).filter(Boolean);
+  return wrap;
+}
+
 function buildList(field, value) {
   const rows = el("div", { class: "cms-list-rows" });
 
@@ -183,6 +211,7 @@ function buildField(field, value) {
     case "textarea": return buildText(field, value, true);
     case "select": return buildSelect(field, value);
     case "image": return buildImage(field, value);
+    case "imageList": return buildImageList(field, value);
     case "list": return buildList(field, value);
     case "objectList": return buildObjectList(field, value);
     case "group": return buildGroup(field, value);
@@ -198,7 +227,8 @@ export function buildForm(fields, data = {}) {
   const node = el("div", { class: "cms-form" });
   const controllers = [];
   fields.forEach((field) => {
-    const f = buildField(field, data[field.key]);
+    const value = data[field.key] ?? (field.fallbackKey ? data[field.fallbackKey] : undefined);
+    const f = buildField(field, value);
     node.appendChild(f);
     controllers.push({ key: field.key, collect: f.__collect });
   });

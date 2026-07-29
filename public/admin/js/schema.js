@@ -35,7 +35,7 @@ export const SECTIONS = [
       { key: "mision", label: "Misión", type: "textarea" },
       { key: "vision", label: "Visión", type: "textarea" },
       { key: "alliesText", label: "Nuestros aliados — Texto", type: "textarea" },
-      { key: "alliesImage", label: "Nuestros aliados — Imagen", type: "image", folder: "home" }
+      { key: "alliesImages", fallbackKey: "alliesImage", label: "Nuestros aliados — Imagen", type: "imageList", folder: "home", addLabel: "+ Agregar otro aliado" }
     ]
   },
 

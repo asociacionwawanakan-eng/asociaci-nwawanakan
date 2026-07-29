@@ -17341,3 +17341,42 @@ body.voluntariado-body .voluntariado-process-image img {
     height: 155px !important;
   }
 }
+
+/* Inicio: varios aliados con el mismo estilo visual existente */
+body.home-page .allies-image-wrap {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 14px !important;
+  width: min(100%, 900px) !important;
+  max-width: 900px !important;
+  margin: 0 auto !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  overflow: visible !important;
+}
+
+body.home-page .allies-image-wrap img {
+  display: block !important;
+  width: min(100%, 280px) !important;
+  max-width: 280px !important;
+  height: auto !important;
+  margin: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  object-fit: contain !important;
+}
+
+@media (max-width: 640px) {
+  body.home-page .allies-image-wrap {
+    gap: 12px !important;
+  }
+
+  body.home-page .allies-image-wrap img {
+    width: min(100%, 240px) !important;
+  }
+}
