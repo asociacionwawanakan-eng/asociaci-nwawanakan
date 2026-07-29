@@ -118,6 +118,20 @@ function slugifyCenterId(value) {
     .replace(/^-+|-+$/g, "");
 }
 
+function normalizeCenterName(value) {
+  return String(value || "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .trim();
+}
+
+function getDistritoVisual(centro = {}, fallbackDistrito = "") {
+  const nombre = normalizeCenterName(centro.nombre || centro.name);
+  if (nombre === "virgen de la fuensanta") return "Distrito 3";
+  return centro.distrito || centro.district || fallbackDistrito || "";
+}
+
 function buildMapCentersFromLocations(locations = []) {
   return (Array.isArray(locations) ? locations : [])
     .filter((location) => location && location.activo !== false && location.activo !== "no")
@@ -125,10 +139,11 @@ function buildMapCentersFromLocations(locations = []) {
     .map((location, index) => {
       const name = location.nombre || location.name || "Centro";
       const mapsLink = location.linkGoogleMaps || location.mapsLink || location.url || "";
+      const district = getDistritoVisual({ ...location, name, nombre: name }, location.distrito || location.district || "");
       return {
         id: location.id || slugifyCenterId(name),
         name,
-        district: location.distrito || location.district || "",
+        district,
         address: location.direccion || location.address || "",
         mapsLink,
         ubicacionGoogleMaps: mapsLink,
@@ -186,6 +201,7 @@ async function loadData() {
 function getCenterProfile(district, name, image) {
   const detail = centerDetails[name] || {};
   const displayName = detail.name || name;
+  const visualDistrict = getDistritoVisual({ ...detail, name: displayName, nombre: displayName }, district.name);
   const imageFile = detail.image || image;
   // Soporta tanto nombres de archivo locales (assets/centros/…) como URLs
   // absolutas subidas al CMS (Cloudinary).
@@ -222,7 +238,7 @@ function getCenterProfile(district, name, image) {
   const address = detail.address || "Direccion institucional por actualizar, El Alto";
   return {
     name: displayName,
-    district: district.name,
+    district: visualDistrict,
     subtitulo: detail.subtitulo || "Centro infantil con acompañamiento, cuidado y formación integral",
     address,
     mapsLink: detail.ubicacionGoogleMaps || detail.mapsLink || null,
@@ -346,9 +362,10 @@ function animateStatNumber(numberElement) {
 }
 
 function updateMapInfo(center) {
+  const visualDistrict = getDistritoVisual(center, center.district);
   if (mapSelectedLabel) mapSelectedLabel.textContent = center.name;
   if (mapInfoCenter) mapInfoCenter.textContent = center.name;
-  if (mapInfoDistrict) mapInfoDistrict.textContent = center.district;
+  if (mapInfoDistrict) mapInfoDistrict.textContent = visualDistrict;
   if (mapInfoAddress) mapInfoAddress.textContent = center.address;
   if (mapDirectionsLink) {
     const mapLink = center.ubicacionGoogleMaps || center.mapsLink || "";
@@ -396,11 +413,27 @@ function closeMobileMenu() {
 
 function renderDistricts() {
   if (!districtGrid) return;
-  districtGrid.innerHTML = districts.map((district, districtIndex) => `
+  const districtOrder = districts.map((district) => district.name);
+  const visualDistricts = districts.reduce((acc, district, districtIndex) => {
+    district.centers.forEach(([name, image], centerIndex) => {
+      const visualDistrict = getDistritoVisual({ name, nombre: name }, district.name);
+      if (!acc[visualDistrict]) {
+        acc[visualDistrict] = { name: visualDistrict, centers: [] };
+        if (!districtOrder.includes(visualDistrict)) districtOrder.push(visualDistrict);
+      }
+      acc[visualDistrict].centers.push({ name, image, districtIndex, centerIndex });
+    });
+    if (!acc[district.name]) acc[district.name] = { name: district.name, centers: [] };
+    return acc;
+  }, {});
+  districtGrid.innerHTML = districtOrder
+    .map((districtName) => visualDistricts[districtName])
+    .filter(Boolean)
+    .map((district) => `
     <article class="district-card">
       <h3>${district.name}</h3>
       <div class="center-buttons">
-        ${district.centers.map(([name, image], centerIndex) => `
+        ${district.centers.map(({ name, image, districtIndex, centerIndex }) => `
           <button class="center-button" type="button" data-district="${districtIndex}" data-center="${centerIndex}" data-image="${image}">
             ${name}
           </button>
