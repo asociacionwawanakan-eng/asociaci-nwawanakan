@@ -17345,25 +17345,31 @@ body.voluntariado-body .voluntariado-process-image img {
 /* Inicio: varios aliados con el mismo estilo visual existente */
 body.home-page .allies-image-wrap {
   display: flex !important;
-  flex-wrap: wrap !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
   align-items: center !important;
   justify-content: center !important;
-  gap: 14px !important;
-  width: min(100%, 900px) !important;
-  max-width: 900px !important;
+  gap: clamp(24px, 3vw, 45px) !important;
+  width: 100% !important;
+  max-width: 100% !important;
   margin: 0 auto !important;
+  padding: 16px 12px 24px !important;
   border: 0 !important;
   border-radius: 0 !important;
   background: transparent !important;
   box-shadow: none !important;
-  overflow: visible !important;
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  scroll-behavior: smooth !important;
+  -webkit-overflow-scrolling: touch !important;
 }
 
 body.home-page .allies-image-wrap img {
+  flex: 0 0 auto !important;
   display: block !important;
-  width: min(100%, 280px) !important;
-  max-width: 280px !important;
-  height: auto !important;
+  width: clamp(180px, 20vw, 300px) !important;
+  min-width: clamp(180px, 20vw, 300px) !important;
+  height: 280px !important;
   margin: 0 !important;
   border-radius: 0 !important;
   background: transparent !important;
@@ -17373,10 +17379,14 @@ body.home-page .allies-image-wrap img {
 
 @media (max-width: 640px) {
   body.home-page .allies-image-wrap {
-    gap: 12px !important;
+    justify-content: flex-start !important;
+    gap: 20px !important;
+    padding: 12px 10px 20px !important;
   }
 
   body.home-page .allies-image-wrap img {
-    width: min(100%, 240px) !important;
+    width: 190px !important;
+    min-width: 190px !important;
+    height: 210px !important;
   }
 }
